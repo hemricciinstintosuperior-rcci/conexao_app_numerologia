@@ -838,7 +838,7 @@ destino: `
 </div>
 `
 
-},
+};
 
 // --- PONTE DE CONEXÃO (COLE NO FINAL DO ARQUIVO) ---
 

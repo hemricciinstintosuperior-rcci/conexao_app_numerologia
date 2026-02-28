@@ -781,7 +781,7 @@ comportamento: {
     <p>Sua mente é ampla e não aceita preconceitos ou limitações de pensamento. <strong>você</strong> atua como uma figura de cura ou de inspiração para quem atravessa momentos de transição. Para <strong>você</strong>, a realização pessoal está conectada ao impacto positivo que <strong>você</strong> gera na vida do próximo, tornando sua jornada uma sucessão de atos de bondade e desprendimento admiráveis.</p>
     <p>O desafio desse comportamento é não se deixar abater pelo sofrimento alheio ou se perder em idealismos utópicos. Ao manter o foco na missão prática de auxiliar e educar, <strong>você</strong> atinge uma paz interior inabalável e se torna um exemplo vivo de transformação e amor incondicional para toda a humanidade.</p>`
  }
-},
+};
 
 // ==========================================
 // 5. EXPLICATIVOS GERAIS (USADOS PELAS ABAS)

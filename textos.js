@@ -842,15 +842,35 @@ destino: `
 
 };
 
-// --- PONTE DE CONEXÃO (COLE NO FINAL DO ARQUIVO) ---
 // --- COLA ESTE BLOCO NO FINAL DO TEU FICHEIRO TEXTOS.JS ---
 
-// --- UNIFICAÇÃO TOTAL (NÃO DEIXA NINGUÉM DE FORA) ---
-var textos = { 
-    ...(typeof textosPerfil !== 'undefined' ? textosPerfil : {}),
-    ...(typeof textosHarmonia !== 'undefined' ? textosHarmonia : {}),
-    ...(typeof textosVida !== 'undefined' ? textosVida : {}),
-    ...(typeof textosMapaCompleto !== 'undefined' ? textosMapaCompleto : {}),
-    introducoes, 
-    explicacoesPosicao 
+// 1. Criar as introduções que o teu HTML (linha 104) está a pedir
+const introducoes = {
+    natural: "A tua estrutura natural revela a base da sua personalidade e as ferramentas que trouxeste ao nascer.",
+    fisico: "O plano físico representa a tua capacidade de realização material.",
+    mental: "O plano mental descreve como processas informações e planeias.",
+    emocional: "O plano emocional revela como lidas com os teus sentimentos.",
+    intuitivo: "O plano intuitivo mostra a tua ligação com o que não é visível."
 };
+
+// 2. Criar as explicações de posição que o teu HTML (linha 108) está a pedir
+const explicacoesPosicao = {
+    1: "Esta é a tua maior força. É a energia que usas de forma mais instintiva.",
+    2: "Esta é uma força de apoio importante que equilibra a tua forma de agir.",
+    3: "Esta energia manifesta-se de forma equilibrada como um recurso secundário.",
+    4: "Esta é a área que exige mais esforço e onde buscas maior aprendizagem."
+};
+
+// 3. A PONTE: Faz o HTML encontrar os textos dentro de 'textosPerfil'
+const textosPlanos = textosPerfil;
+
+// 4. UNIFICAÇÃO: Para que outros Apps (como o da degustação) também funcionem
+var textos = { 
+    ...textosPerfil, 
+    introducoes, 
+    explicacoesPosicao,
+    dia: textosPerfil.dia || {}, // Caso tenhas textos de dia de nascimento
+    comportamento: textosPerfil.comportamento || {} 
+};
+
+console.log("Conexão de variáveis concluída com sucesso!");

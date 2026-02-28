@@ -858,7 +858,7 @@ function buscarTextoPerfil(tipo, nivel, numero) {
     } catch (e) {
         return "Texto não encontrado para: " + tipo + " - " + nivel;
     }
-}
+};
 
 console.log("Arquivo textos.js carregado com sucesso!");
 

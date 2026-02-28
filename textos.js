@@ -568,7 +568,7 @@ const textosVida = {
 9:"Sabedoria e Sacrifício. A Potência Regente 9 representa prudência sabedoria e renúncia. Rege a vida pelo autoconhecimento e busca de significado. No aspecto positivo manifesta maturidade espiritualidade e altruísmo. No aspecto negativo pode gerar isolamento pessimismo e apego ao passado. A Potência Regente 9 ensina que a sabedoria nasce da experiência"
 
 
-},
+};
 
 
 // ==========================================

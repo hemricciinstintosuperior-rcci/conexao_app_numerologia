@@ -567,8 +567,8 @@ const textosVida = {
 8:"Justiça e Equilíbrio Universal. A Potência Regente 8 representa lei do equilíbrio causa e efeito e justiça universal. Rege a vida pela harmonização de forças opostas. No aspecto positivo manifesta ética responsabilidade e liderança equilibrada. No aspecto negativo pode gerar fanatismo rigidez moral e autoritarismo. A Potência Regente 8 ensina que toda ação gera consequências",
 
 9:"Sabedoria e Sacrifício. A Potência Regente 9 representa prudência sabedoria e renúncia. Rege a vida pelo autoconhecimento e busca de significado. No aspecto positivo manifesta maturidade espiritualidade e altruísmo. No aspecto negativo pode gerar isolamento pessimismo e apego ao passado. A Potência Regente 9 ensina que a sabedoria nasce da experiência",
-
 },
+
 
 // ==========================================
 // 4. GAVETA: ESTUDO NUMEROLÓGICO (estudonumerologico.html)

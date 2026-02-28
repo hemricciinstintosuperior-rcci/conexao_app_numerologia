@@ -877,3 +877,9 @@ var textos = {
     comportamento: (textosPerfil && textosPerfil.comportamento) ? textosPerfil.comportamento : {}
 };
 console.log("Conexão de variáveis concluída com sucesso!");
+
+// APENAS PARA O ESTUDO NUMEROLÓGICO FUNCIONAR
+if (typeof textosPerfil !== 'undefined') {
+    textos.dia = textosPerfil.dia;
+    textos.comportamento = textosPerfil.comportamento;
+}

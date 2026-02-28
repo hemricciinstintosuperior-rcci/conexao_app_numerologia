@@ -846,22 +846,11 @@ destino: `
 // --- COLA ESTE BLOCO NO FINAL DO TEU FICHEIRO TEXTOS.JS ---
 
 // --- UNIFICAÇÃO TOTAL (NÃO DEIXA NINGUÉM DE FORA) ---
-
 var textos = { 
-    ...textosPerfil,        // Libera: fisico, mental, emocional, intuitivo, dia, comportamento
-    ...textosHarmonia,      // Libera: todos os textos de compatibilidade/casal
-    ...textosVida,          // Libera: pirâmide, ciclos, desafios
-    ...textosMapaCompleto,   // Libera: qualquer outro texto extra que você criou
-    introducoes,            // Libera: os textos de abertura do Plano Natural
-    explicacoesPosicao      // Libera: as explicações de 1º, 2º e 3º intensidade
+    ...(typeof textosPerfil !== 'undefined' ? textosPerfil : {}),
+    ...(typeof textosHarmonia !== 'undefined' ? textosHarmonia : {}),
+    ...(typeof textosVida !== 'undefined' ? textosVida : {}),
+    ...(typeof textosMapaCompleto !== 'undefined' ? textosMapaCompleto : {}),
+    introducoes, 
+    explicacoesPosicao 
 };
-
-// --- PONTES DE SEGURANÇA (Para garantir que os nomes batam) ---
-// Se o HTML procurar por 'textosPlanos', ele acha o 'textosPerfil'
-const textosPlanos = textosPerfil; 
-
-// Garante que o App de Estudo ache o 'dia' e o 'comportamento'
-textos.dia = textos.dia || (textosPerfil ? textosPerfil.dia : {});
-textos.comportamento = textos.comportamento || (textosPerfil ? textosPerfil.comportamento : {});
-
-console.log("✅ Sistema Unificado: Todos os textos estão ativos!");

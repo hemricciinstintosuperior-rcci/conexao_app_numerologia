@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Perfil Natural</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #0f172a; color: white; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    .container { max-width: 650px; width: 100%; }
+    h1 { color: #ffd633; text-align: center; }
+    
+    .caixa-input { background: #1e293b; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+    input { width: 90%; padding: 15px; border-radius: 8px; border: none; font-size: 18px; margin-bottom: 15px; }
+    
+    .btn-gerar { width: 95%; padding: 20px; background: #ffd633; color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 18px; }
+    
+    /* Estilo das Barras igual ao seu original */
+    .bloco-resultado { display: none; background: #111827; padding: 25px; border-radius: 15px; margin-top: 20px; border: 1px solid #334155; }
+    .bar-bg { background: #2a2a2a; height: 18px; border-radius: 10px; margin: 8px 0 15px 0; }
+    .bar { height: 100%; width: 0%; border-radius: 10px; transition: 1.5s; }
+    .fisico { background: #ff4d4d; } .mental { background: #4da6ff; } .emocional { background: #33cc66; } .intuitivo { background: #ffd633; }
+    
+    .resumo-completo { background: #1f2937; padding: 20px; border-radius: 8px; margin-top: 20px; line-height: 1.6; font-size: 16px; border-left: 4px solid #ffd633; }
+    
+    /* Banner de Venda (A Ponte) */
+    .cta-premium { background: linear-gradient(to right, #1e293b, #0f172a); border: 2px solid #ffd633; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: center; }
+    .btn-comprar { background: #22c55e; color: white; padding: 20px; border-radius: 10px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 15px; font-size: 20px; width: 90%; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧬 Portal Instinto Superior</h1>
+    
+    <div class="caixa-input">
+        <p>Digite seu nome completo para revelar sua estrutura de nascimento:</p>
+        <input id="nome" placeholder="Seu nome igual na certidão">
+        <button class="btn-gerar" onclick="gerarTudo()">REVELAR MEU PLANO NATURAL</button>
+    </div>
+
+    <div id="blocoResultado" class="bloco-resultado">
+        <h2 style="color: #ffd633; text-align: center;">Seu Plano Natural</h2>
+        
+        Físico: <div class="bar-bg"><div id="barFisicoNat" class="bar fisico"></div></div>
+        Mental: <div class="bar-bg"><div id="barMentalNat" class="bar mental"></div></div>
+        Emocional: <div class="bar-bg"><div id="barEmocionalNat" class="bar emocional"></div></div>
+        Intuitivo: <div class="bar-bg"><div id="barIntuitivoNat" class="bar intuitivo"></div></div>
+
+        <div id="resumoNatural" class="resumo-completo"></div>
+
+        <div class="cta-premium">
+            <h3 style="color: #ffd633; margin-top: 0;">✅ Esta é sua Base de Nascimento!</h3>
+            <p>Sua análise natural está completa. Porém, o seu <b>Status do Momento</b> e sua <b>Vibração de Trânsito 2024</b> estão bloqueados.</p>
+            <p>Você quer saber como as energias do ano vão impactar sua vida prática e emocional?</p>
+            <a href="LINK_DA_HOTMART" class="btn-comprar">DESBLOQUEAR MAPA COMPLETO + PDF</a>
+        </div>
+    </div>
+</div>
+
+<script src="textos.js"></script>
+
+<script>
+// Mantendo sua lógica original de tabelas para não dar erro no cálculo
+const tabela = { A:1, J:1, I:1, Q:1, Y:1, B:2, K:2, R:2, C:3, G:3, L:3, S:3, D:4, M:4, T:4, E:5, H:5, N:5, U:6, V:6, W:6, X:6, Ç:6, O:7, Z:7, F:8, P:8 };
+const planos = { fisico: ["E","W","D","M"], mental: ["A","H","J","N","P","G","L"], emocional: ["I","O","R","Z","B","S","T","X"], intuitivo: ["K","F","Q","U","Y","C","V"] };
+
+// Funções de apoio do seu sistema original
+function calcularValorComAcentos(letra) {
+    const base = letra.normalize("NFD")[0].toUpperCase();
+    return tabela[base] || 0;
+}
+
+function reduzirNumero(n) {
+    if (n === 0) return 0;
+    while(n > 9) n = n.toString().split("").reduce((a,b) => a + Number(b), 0);
+    return n;
+}
+
+function descobrirPlano(letra) {
+    let l = letra.normalize("NFD")[0].toUpperCase();
+    for(let p in planos) if(planos[p].includes(l)) return p;
+    return null;
+}
+
+function classificarIntensidade(valor, maior) {
+    if (valor >= maior * 0.75) return "forte";
+    if (valor >= maior * 0.5) return "medio";
+    return "fraco";
+}
+
+// Sua função principal de gerar texto que usa o textos.js
+function gerarTextoPlano(tipo, dados) {
+    const nomesAmigaveis = { fisico: "Plano Físico", mental: "Plano Mental", emocional: "Plano Emocional", intuitivo: "Plano Intuitivo" };
+    let planosOrdenados = Object.keys(dados)
+        .map(chave => ({ chave, valor: Number(dados[chave].valorReal) || 0, nivel: dados[chave].nivel, num: dados[chave].numero }))
+        .sort((a, b) => b.valor - a.valor);
+
+    // Usa as variáveis que estão dentro do seu textos.js
+    let textoFinal = (introducoes[tipo] || "") + "<br><br>";
+    planosOrdenados.forEach((plano, index) => {
+        let posicao = index + 1;
+        textoFinal += `<b>${posicao}ºIntensidade - ${nomesAmigaveis[plano.chave]}</b><br>`;
+        if (typeof explicacoesPosicao !== 'undefined') textoFinal += (explicacoesPosicao[posicao] || "") + "<br><br>";
+        if (typeof textosPlanos !== 'undefined' && textosPlanos[plano.chave]) {
+            let txt = textosPlanos[plano.chave][plano.nivel][plano.num];
+            textoFinal += (txt || "") + "<br><br>";
+        }
+    });
+
+    return textoFinal; 
+}
+
+function gerarTudo() {
+    let nome = document.getElementById("nome").value.trim();
+    if(!nome) return alert("Digite o nome.");
+
+    let soma = { fisico: 0, mental: 0, emocional: 0, intuitivo: 0 };
+    for(let l of nome.toUpperCase()) {
+        let p = descobrirPlano(l);
+        if(p) soma[p] += calcularValorComAcentos(l);
+    }
+
+    const maior = Math.max(soma.fisico, soma.mental, soma.emocional, soma.intuitivo);
+    const dados = {
+        fisico: { nivel: classificarIntensidade(soma.fisico, maior), numero: reduzirNumero(soma.fisico), valorReal: soma.fisico },
+        mental: { nivel: classificarIntensidade(soma.mental, maior), numero: reduzirNumero(soma.mental), valorReal: soma.mental },
+        emocional: { nivel: classificarIntensidade(soma.emocional, maior), numero: reduzirNumero(soma.emocional), valorReal: soma.emocional },
+        intuitivo: { nivel: classificarIntensidade(soma.intuitivo, maior), numero: reduzirNumero(soma.intuitivo), valorReal: soma.intuitivo }
+    };
+
+    // Mostra o bloco e anima as barras
+    document.getElementById("blocoResultado").style.display = "block";
+    document.getElementById("barFisicoNat").style.width = ((soma.fisico/maior)*100) + "%";
+    document.getElementById("barMentalNat").style.width = ((soma.mental/maior)*100) + "%";
+    document.getElementById("barEmocionalNat").style.width = ((soma.emocional/maior)*100) + "%";
+    document.getElementById("barIntuitivoNat").style.width = ((soma.intuitivo/maior)*100) + "%";
+
+    // CHAMA O TEXTO DO textos.js
+    document.getElementById("resumoNatural").innerHTML = gerarTextoPlano("natural", dados);
+    
+    window.scrollTo({ top: document.getElementById("blocoResultado").offsetTop, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

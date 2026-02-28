@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Degustação: Seu Perfil Numerológico</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0f172a; color: white; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    h1 { color: #ffd633; text-align: center; margin-bottom: 10px; }
+    .container { width: 100%; max-width: 500px; background: #1e293b; padding: 25px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    .campo { margin-bottom: 15px; font-weight: bold; color: #cbd5e1; }
+    input { width: 100%; padding: 14px; margin-top: 8px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; background: #e5e7eb; }
+    
+    .btn-gerar { width: 100%; padding: 18px; background: #ffd633; color: black; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; margin-top: 10px; }
+    
+    .card { background: #fff; padding: 20px; border-radius: 12px; margin-top: 20px; width: 100%; max-width: 600px; color: #333; }
+    .card h3 { color: #1e293b; margin-top: 0; border-bottom: 2px solid #ffd633; padding-bottom: 10px; }
+    .texto { white-space: pre-line; color: #4b5563; line-height: 1.6; font-size: 16px; margin-top: 10px; }
+    
+    /* Estilo do Bloqueio */
+    .item-bloqueado { background: rgba(30, 41, 59, 0.7); border: 1px dashed #475569; padding: 15px; border-radius: 10px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; color: #94a3b8; }
+    .btn-premium { background: #22c55e; color: white; padding: 20px; border-radius: 12px; text-decoration: none; display: block; font-weight: bold; text-align: center; margin-top: 25px; font-size: 18px; border: none; cursor: pointer; width: 100%; max-width: 600px; }
+  </style>
+</head>
+<body>
+
+<h1>Estudo Numerológico</h1>
+<p style="color: #94a3b8; text-align: center;">Descubra o que o seu dia de nascimento revela sobre você.</p>
+
+<div class="container">
+  <div class="campo"> Nome completo <input id="nome" type="text" placeholder="Nome da certidão"> </div>
+  <div class="campo"> Data de nascimento <input id="data" type="date"> </div>
+  <button class="btn-gerar" onclick="gerarDegustacao()">REVELAR MEU COMPORTAMENTO</button>
+</div>
+
+<div id="resultado" style="margin-top: 30px; width: 100%; display: flex; flex-direction: column; align-items: center;"></div>
+
+<script src="textos.js"></script>
+
+<script>
+const tabela = { A:1, J:1, I:1, Q:1, Y:1, B:2, K:2, R:2, C:3, G:3, L:3, S:3, D:4, M:4, T:4, E:5, H:5, N:5, U:6, V:6, W:6, X:6, Ç:6, O:7, Z:7, F:8, P:8 };
+
+function reduzir(n) {
+  n = Math.abs(n);
+  while (n > 9) { n = n.toString().split("").reduce((a,b)=>a+Number(b),0); }
+  return n;
+}
+
+function aplicarFiltroTexto(texto) {
+    if (!texto) return "";
+    let nomeInput = document.getElementById("nome").value.trim().split(' ')[0];
+    let nome = nomeInput.charAt(0).toUpperCase() + nomeInput.slice(1).toLowerCase();
+    const regex = /você/gi;
+    return texto.replace(regex, `<strong>${nome}</strong>`);
+}
+
+function gerarDegustacao() {
+  const nomeInput = document.getElementById("nome").value.trim();
+  const dataInput = document.getElementById("data").value;
+
+  if(nomeInput.length < 5 || !dataInput) { alert("Preencha nome e data corretamente."); return; }
+
+  const [ano, mes, dia] = dataInput.split("-").map(Number);
+  const diaN = dia;
+  const comportamento = reduzir(dia);
+
+  // Renderiza apenas o "aperitivo"
+  document.getElementById("resultado").innerHTML = `
+    <div class="card">
+        <h3>📍 Dia de Nascimento (Seu Talento)</h3>
+        <p><strong>Número: ${diaN}</strong></p>
+        <div class="texto">${aplicarFiltroTexto(textos.dia[diaN])}</div>
+    </div>
+
+    <div class="card">
+        <h3>🧠 Comportamento (Seu Psíquico)</h3>
+        <p><strong>Número: ${comportamento}</strong></p>
+        <div class="texto">${aplicarFiltroTexto(textos.comportamento[comportamento])}</div>
+    </div>
+
+    <div style="width: 100%; max-width: 600px; margin-top: 20px;">
+        <div class="item-bloqueado"><span>🔒 Motivação (Desejo Íntimo)</span> <span>Bloqueado</span></div>
+        <div class="item-bloqueado"><span>🔒 Destino (Caminho de Vida)</span> <span>Bloqueado</span></div>
+        <div class="item-bloqueado"><span>🔒 Missão e Propósito</span> <span>Bloqueado</span></div>
+        <div class="item-bloqueado"><span>🔒 Ciclos e Desafios 2024</span> <span>Bloqueado</span></div>
+        
+        <button class="btn-premium" onclick="irParaHotmart()">🔓 DESBLOQUEAR MAPA COMPLETO</button>
+    </div>
+  `;
+  
+  window.scrollTo({ top: document.getElementById("resultado").offsetTop, behavior: 'smooth' });
+}
+
+function irParaHotmart() {
+  // Substitua pelo seu link real da Hotmart
+  window.location.href = "SEU_LINK_DA_HOTMART_AQUI";
+}
+</script>
+
+</body>
+</html>

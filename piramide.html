@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz Quântica: Seu Regente</title>
+<style>
+    body { font-family: 'Segoe UI', Arial; background: #0f172a; color: white; text-align: center; padding: 20px; }
+    .container { max-width: 800px; margin: auto; }
+    h1 { color: #facc15; text-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
+    
+    .input-box { background: #1e293b; padding: 25px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #334155; }
+    input { width: 90%; max-width: 500px; padding: 15px; margin: 10px 0; border-radius: 8px; border: none; background: #e5e7eb; font-size: 16px; color: #1e293b; font-weight: bold; }
+    
+    button { background: #facc15; color: #000; font-weight: bold; padding: 18px 40px; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; transition: 0.3s; }
+    button:hover { transform: scale(1.05); background: #fde047; }
+
+    /* ESTILO DA PIRÂMIDE */
+    #resultadoArea { display: none; margin-top: 30px; animation: fadeIn 1s; }
+    .piramide { font-family: monospace; line-height: 1.1; margin: 20px 0; display: inline-block; transform: scale(0.9); }
+    .linha { display: flex; justify-content: center; gap: 4px; margin-bottom: 4px; }
+    .num { background: #28d3ee; color: #000; padding: 4px 6px; border-radius: 4px; font-weight: bold; font-size: 13px; min-width: 14px; }
+    .num.negativo { background: #ff4d4d !important; color: white; }
+
+    /* BOX DO REGENTE (LIBERADO) */
+    .box-regente { background: #0ea5e9; color: white; padding: 25px; border-radius: 15px; margin: 25px auto; max-width: 600px; text-align: left; border-left: 8px solid #facc15; }
+    .box-regente h2 { margin-top: 0; color: #facc15; }
+
+    /* TRAVA DE SEGURANÇA (VIGÊNCIAS) */
+    .trava-venda { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border: 2px dashed #475569; padding: 30px; border-radius: 15px; margin-top: 30px; position: relative; }
+    .blur-item { filter: blur(5px); opacity: 0.3; pointer-events: none; user-select: none; }
+    .btn-premium { background: #22c55e; color: white; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 15px; font-size: 20px; box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.4); }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔺 Matriz Quântica da Vida</h1>
+    <p style="color: #94a3b8;">Descubra o número que rege o seu destino e mapeie sua pirâmide.</p>
+
+    <div class="input-box">
+        <input id="nome" type="text" placeholder="Nome Completo (igual certidão)">
+        <input id="data" type="date">
+        <br>
+        <button onclick="gerarDegustacao()">MAPEAR MINHA MATRIZ</button>
+    </div>
+
+    <div id="resultadoArea">
+        <div id="desenhoPiramide" class="piramide"></div>
+
+        <div class="box-regente">
+            <h2>📍 Seu Número Regente: <span id="numRegente"></span></h2>
+            <div id="textoRegente"></div>
+        </div>
+
+        <div class="trava-venda">
+            <div class="blur-item">
+                <h3>⏳ Vigências e Ciclos de Idade</h3>
+                <p>De 0 a 25 anos: Arcano 12 - Fase de sacrifício...</p>
+                <p>De 25 a 50 anos: Arcano 44 - Estabilidade financeira...</p>
+                <hr>
+                <h3>⚠️ Alerta de Sequências Negativas</h3>
+                <p>Cuidado com a sequência 777 detectada em sua base...</p>
+            </div>
+            
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;">
+                <h3 style="color: #facc15; margin: 0;">🔓 Quer saber o que os números dizem sobre o seu futuro?</h3>
+                <p>Libere as <strong>Vigências de Idade</strong> e o <strong>Alerta de Sequências Negativas</strong>.</p>
+                <a href="SEU_LINK_HOTMART" class="btn-premium">DESBLOQUEAR RELATÓRIO PDF</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="textos.js"></script>
+<script>
+const mapa = { A:1,I:1,Q:1,J:1,Y:1, B:2,K:2,R:2, C:3,G:3,L:3,S:3, D:4,M:4,T:4, E:5,H:5,N:5, U:6,V:6,W:6,X:6, O:7,Z:7, F:8,P:8 };
+
+function reduzir(n) {
+    while(n > 9) n = n.toString().split('').reduce((a,b) => +a + +b, 0);
+    return n;
+}
+
+function gerarDegustacao() {
+    const nomeTxt = document.getElementById("nome").value.trim().toUpperCase();
+    if(nomeTxt.length < 5) return alert("Por favor, digite seu nome completo.");
+
+    // Gerar Base
+    let base = [];
+    for(let l of nomeTxt) {
+        let v = mapa[l.normalize("NFD")[0]] || 0;
+        if(v) base.push(v);
+    }
+
+    // Calcular Pirâmide
+    let linhas = [base];
+    let baseAtual = [...base];
+    while(baseAtual.length > 1) {
+        let nova = [];
+        for(let i=0; i < baseAtual.length-1; i++) {
+            nova.push(reduzir(baseAtual[i] + baseAtual[i+1]));
+        }
+        linhas.push(nova);
+        baseAtual = nova;
+    }
+
+    // Desenhar Pirâmide (apenas as 15 primeiras linhas para não ficar gigante no mobile)
+    let html = "";
+    linhas.slice(0, 15).forEach((linha, i) => {
+        html += `<div class="linha">`;
+        linha.forEach((n, j) => {
+            // Lógica simples de destaque (sequências de 3)
+            let ehNeg = (j > 0 && j < linha.length-1 && n === linha[j-1] && n === linha[j+1]);
+            html += `<div class="num ${ehNeg ? 'negativo' : ''}">${n}</div>`;
+        });
+        html += `</div>`;
+    });
+    if(linhas.length > 15) html += `<div>(...)</div>`;
+
+    // Pegar Regente (último número da pirâmide)
+    const regente = linhas[linhas.length - 1][0];
+    
+    // Injetar Resultados
+    document.getElementById("desenhoPiramide").innerHTML = html;
+    document.getElementById("numRegente").innerText = regente;
+    
+    // Puxar texto do seu textos.js (usando textosVida ou regente conforme seu arquivo)
+    const textoBase = (typeof textosVida !== 'undefined') ? textosVida[regente] : "Seu regente revela sua missão principal nesta existência.";
+    document.getElementById("textoRegente").innerHTML = textoBase;
+
+    document.getElementById("resultadoArea").style.display = "block";
+    window.scrollTo({ top: document.getElementById("resultadoArea").offsetTop, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

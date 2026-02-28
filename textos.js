@@ -544,7 +544,8 @@ Existe dentro de <strong>você</strong> um forte impulso de liderança e a sensa
 9: `<p>A motivação de <strong>você</strong> é servir, contribuir e causar um impacto positivo no mundo.</p>
 
 <p>Existe em <strong>você</strong> uma forte inclinação humanitária e o desejo de ajudar. <strong>você</strong> sente satisfação ao contribuir para algo maior do que si mesmo. O aprendizado de <strong>você</strong> está em equilibrar o altruísmo com limites saudáveis para si.</p>`
-},
+}
+};
 
 // ==========================================
 // 3. GAVETA: MATRIZ DA VIDA (piramide.html)

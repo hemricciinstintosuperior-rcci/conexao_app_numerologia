@@ -569,124 +569,7 @@ const textosVida = {
 9:"Sabedoria e Sacrifício. A Potência Regente 9 representa prudência sabedoria e renúncia. Rege a vida pelo autoconhecimento e busca de significado. No aspecto positivo manifesta maturidade espiritualidade e altruísmo. No aspecto negativo pode gerar isolamento pessimismo e apego ao passado. A Potência Regente 9 ensina que a sabedoria nasce da experiência",
 
 
-const textosSeqNeg = {
-     1: `➢ SEQUENCIA 111 Nesta fase, você poderá sentir que sua chama interna de motivação está sendo abafada por obstáculos inesperados.
-A influência desta sequência tende a minar sua capacidade de iniciativa, tornando o ato de começar algo novo um verdadeiro desafio.
-É comum surgir um sentimento de impotência, onde a coragem para arriscar parece desaparecer, dando lugar à inatividade.
 
-Você pode enfrentar períodos de estagnação profissional ou desânimo profundo, sentindo-se limitado em suas realizações.
-Esse estado de baixa energia pode perdurar enquanto o Arcano regente estiver dominando o seu ciclo atual.
-Psicologicamente, isso gera uma sensação de paralisia diante das oportunidades da vida.
-
-No aspecto físico, o mapa acende um alerta para o cuidado redobrado com o centro do seu peito.
-Existe uma tendência vibracional que pode afetar o sistema cardíaco se o estresse não for gerenciado.
-É um momento que exige esforço consciente para não se deixar abater pelo desemprego ou pela falta de propósito.
-A chave aqui é buscar reacender sua determinação interna, mesmo quando o cenário externo parecer desfavorável.`,
-
-  2: `➢ SEQUENCIA 222 Esta configuração vibracional atua diretamente sobre o seu senso de valor próprio e autoconfiança.
-Você poderá se perceber mais vulnerável à opinião alheia, permitindo que amigos ou parceiros influencem demais suas decisões.
-A indecisão e a timidez podem se tornar obstáculos frequentes, dificultando a imposição de suas vontades e desejos.
-
-Há um risco real de desenvolver comportamentos submissos, onde você anula sua identidade em prol do convívio com os outros.
-Essa insegurança constante acaba limitando o desenvolvimento de projetos pessoais que exigem autonomia.
-Sentir-se incapaz de caminhar com as próprias pernas é uma marca comum desta influência negativa.
-
-É necessário vigilância para não se tornar dependente emocionalmente de quem está ao seu redor.
-No campo da saúde, essa fragilidade emocional pode abrir portas para inclinações que gerem dependências químicas ou psicológicas.
-O desafio é fortalecer o seu "eu" interno para que você não se perca nas expectativas da sociedade ou da família.
-Recuperar o comando da sua vida é a grande lição que esta sequência tenta lhe ensinar através desses testes.`,
-
-  3: `➢ SEQUENCIA 333 A comunicação, que deveria ser sua ponte com o mundo, pode se transformar em uma barreira sob esta influência.
-Você poderá sentir uma dificuldade crescente em expressar o que sente, resultando em frequentes mal-entendidos.
-
-Seus pensamentos e ideias, por mais brilhantes que sejam, parecem não ser compreendidos pelas pessoas próximas.
-Isso gera uma frustração constante no ambiente de trabalho e, principalmente, dentro dos seus relacionamentos afetivos.
-A sensação de estar isolado em sua própria mente pode levar a um retraimento social indesejado.
-
-Convencer os outros sobre suas opiniões exigirá um esforço muito maior do que o habitual durante este período.
-Essa limitação na expressão pessoal pode causar um sentimento de invisibilidade social.
-No aspecto biológico, o estresse de não ser ouvido tende a se manifestar em áreas de troca e movimento.
-Fique atento a possíveis sensibilidades no sistema respiratório ou desconfortos nas articulações do corpo.
-Trabalhar a clareza e a paciência no diálogo será fundamental para atravessar essa fase sem maiores conflitos.`,
-
-  4: `➢ SEQUENCIA 444 Esta sequência aponta para um período de provações severas no campo da carreira e da estabilidade profissional.
-Você poderá encontrar obstáculos que parecem bloquear qualquer tentativa de ascensão ou reconhecimento no trabalho.
-
-Existe uma tendência a enfrentar remunerações abaixo do esperado ou dificuldades em se manter estável em um emprego.
-Muitas vezes, a necessidade de sobrevivência pode obrigá-lo a aceitar funções que não condizem com seu talento.
-A falta de perspectivas claras de futuro pode gerar uma ansiedade constante sobre a sua segurança material.
-
-É um ciclo que exige resiliência, pois o sucesso parece sempre estar um passo à frente do seu alcance atual.
-A frustração profissional pode se transformar em um peso emocional difícil de carregar no dia a dia.
-Na esfera física, essa pressão por estabilidade pode sobrecarregar o sistema circulatório e as funções arteriais.
-Também há um alerta vibracional para o desenvolvimento de condições reumáticas causadas pela tensão acumulada.
-Manter a fé em suas habilidades será o seu maior desafio enquanto você busca suprir suas necessidades básicas.`,
-
-  5: `➢ SEQUENCIA 555 A marca desta influência é a instabilidade constante, forçando mudanças que você muitas vezes não deseja realizar.
-Pode haver uma alternância drástica em seus valores, status social e até mesmo em sua residência ou profissão.
-Viver em constantes altos e baixos gera um desgaste mental profundo, dificultando qualquer plano de longo prazo.
-A sensação é de que nada é sólido ou seguro, pois o que está firme hoje pode mudar completamente amanhã.
-
-Você poderá se sentir constantemente em busca de algo que o satisfaça, sem nunca encontrar um porto seguro.
-Essa insatisfação crônica pode levá-lo ao desejo de romper todos os laços e buscar um isolamento radical.
-O desapego excessivo pode acabar afastando pessoas importantes que poderiam ajudá-lo nesse processo.
-O corpo físico pode reagir a essa montanha-russa emocional através de manifestações na pele.
-
-Além disso, a falta de foco característica deste período aumenta a predisposição a sofrer pequenos acidentes domésticos.
-A lição aqui é aprender a encontrar o equilíbrio interno mesmo quando o mundo externo parece estar em colapso.`,
-
-  6: `➢ SEQUENCIA 666 O campo dos afetos e dos sentimentos é o mais atingido por esta sequência, trazendo o peso da decepção.
-Você poderá passar por situações onde amigos íntimos, sócios ou familiares falham com a sua confiança.
-Existe um risco elevado de sentir-se incompreendido pelo parceiro ou pela pessoa amada em seus planos de vida.
-
-A dor de não ver seus sentimentos correspondidos ou respeitados pode gerar um amargor difícil de digerir.
-Expectativas muito altas em relação aos outros tendem a resultar em frustrações dolorosas neste ciclo.
-Muitas vezes, você se sentirá sozinho mesmo estando cercado por pessoas que deveriam apoiá-lo.
-A desilusão amorosa pode afetar sua visão sobre a lealdade e a bondade das pessoas ao seu redor.
-
-Fisicamente, essa carga emocional de tristeza costuma se concentrar na região cardíaca e no sistema vascular.
-É essencial aprender a não colocar a sua felicidade exclusivamente nas mãos de terceiros para evitar o sofrimento.
-A cura virá através do amor-próprio e da compreensão de que nem todos possuem o mesmo nível de entrega que você.`,
-
-  7: `➢ SEQUENCIA 777 Sob esta vibração, o medo e a intolerância podem se tornar companheiros constantes, alterando seu comportamento.
-Você poderá se tornar uma pessoa mais arredia, teimosa e com uma tendência perigosa ao isolamento voluntário.
-O afastamento social pode parecer uma proteção, mas acaba gerando frustrações profundas e um sentimento de vazio.
-
-Há um risco de desenvolver comportamentos arrogantes ou vaidosos como forma de mascarar suas próprias inseguranças.
-A intolerância com as falhas alheias pode afastar aliados valiosos, tornando sua jornada muito mais solitária.
-Os excessos e exageros podem ser usados como válvula de escape para o medo que você sente do futuro.
-Essa busca por refúgio na própria mente pode levá-lo a se tornar refém de pensamentos negativos e obsessivos.
-
-No campo da saúde, esse padrão de solidão e estresse nervoso é extremamente desgastante para o organismo.
-Existe um alerta para o sistema nervoso e até para o surgimento de patologias mais graves se a mente não for cuidada.
-Buscar ajuda e manter a mente aberta para o mundo é o caminho para não se perder em sua própria escuridão.`,
-
-  8: `➢ SEQUENCIA 888 Esta é uma das sequências mais desafiadoras, pois afeta simultaneamente o equilíbrio emocional e o financeiro.
-Você poderá manifestar uma postura agressiva ou inacessível, perdendo o controle diante de pequenas adversidades.
-Isso acaba afastando o convívio social, pois as pessoas sentem dificuldade em lidar com sua instabilidade.
-
-O período pode ser marcado por perdas financeiras significativas, injustiças e privações materiais severas.
-Sua capacidade de julgamento estará nublada, tornando-o um alvo fácil para golpes ou decisões precipitadas.
-O dinheiro pode entrar e sair com a mesma rapidez, criando uma oscilação angustiante entre a fartura e a escassez.
-A sensação de injustiça pode corroer sua paz, levando a explosões de temperamento que prejudicam sua imagem.
-Esse estresse crônico é um veneno para o seu sistema nervoso, podendo gerar doenças psicossomáticas graves.
-
-É um momento que exige um controle férreo sobre as emoções para que elas não destruam o seu patrimônio.
-O desafio é manter a ética e a calma mesmo quando tudo parece estar sendo tirado de suas mãos.`,
-
-  9: `➢ SEQUENCIA 999 Aqui, a capacidade de discernimento e a compreensão das situações da vida ficam seriamente comprometidas.
-Você poderá enfrentar um ciclo de estagnação onde nada parece avançar, independentemente do seu esforço.
-Dificuldades financeiras agudas e até a perda de patrimônio construído ao longo de anos são riscos reais.
-Fracassos em negócios e relacionamentos podem surgir devido a uma visão distorcida da realidade.
-
-A sensação de estar "travado" no tempo gera uma frustração que pode evoluir para quadros de depressão.
-É difícil entender o porquê de tantas dificuldades estarem acontecendo ao mesmo tempo, gerando um peso mental.
-O estresse causado pela falta de resultados pode afetar drasticamente o seu ânimo para continuar lutando.
-
-No plano físico, essa carga de estresse constante é um fator de risco para o seu sistema nervoso e coração.
-Doenças somáticas e hipocondria podem aparecer como reflexo de uma mente que não encontra saída para os problemas.
-A lição fundamental deste período é o desapego e a busca por uma nova forma de enxergar o valor da vida.`
-};
 // ==========================================
 // 4. GAVETA: ESTUDO NUMEROLÓGICO (estudonumerologico.html)
 // ==========================================
@@ -894,7 +777,8 @@ comportamento: {
     <p><strong>você</strong> sente uma ligação intrínseca com causas sociais e com o desenvolvimento espiritual. O comportamento de <strong>você</strong> é o de alguém que está sempre em prontidão para encerrar ciclos, perdoar e buscar a evolução da consciência acima de qualquer ganho material imediato. Existe um carisma universal em <strong>você</strong> que atrai pessoas de todas as origens para perto de sua luz e tolerância.</p>
     <p>Sua mente é ampla e não aceita preconceitos ou limitações de pensamento. <strong>você</strong> atua como uma figura de cura ou de inspiração para quem atravessa momentos de transição. Para <strong>você</strong>, a realização pessoal está conectada ao impacto positivo que <strong>você</strong> gera na vida do próximo, tornando sua jornada uma sucessão de atos de bondade e desprendimento admiráveis.</p>
     <p>O desafio desse comportamento é não se deixar abater pelo sofrimento alheio ou se perder em idealismos utópicos. Ao manter o foco na missão prática de auxiliar e educar, <strong>você</strong> atinge uma paz interior inabalável e se torna um exemplo vivo de transformação e amor incondicional para toda a humanidade.</p>`
-  },
+ }
+},
 
 // ==========================================
 // 5. EXPLICATIVOS GERAIS (USADOS PELAS ABAS)

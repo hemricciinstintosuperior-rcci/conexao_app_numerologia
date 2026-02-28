@@ -836,3 +836,27 @@ destino: `
 `
 
 },
+
+// --- PONTE DE CONEXÃO (COLE NO FINAL DO ARQUIVO) ---
+
+// 1. Cria uma variável global 'textos' que junta todas as suas gavetas
+var textos = { 
+    ...textosPerfil, 
+    ...textosHarmonia, 
+    ...textosVida, 
+    ...textosMapaCompleto 
+};
+
+// 2. Se o seu App de Perfil usa Forte/Médio/Fraco, 
+// esta função ajuda o sistema a encontrar o caminho certo:
+function buscarTextoPerfil(tipo, nivel, numero) {
+    try {
+        return textosPerfil[tipo][nivel][numero];
+    } catch (e) {
+        return "Texto não encontrado para: " + tipo + " - " + nivel;
+    }
+}
+
+console.log("Arquivo textos.js carregado com sucesso!");
+
+  

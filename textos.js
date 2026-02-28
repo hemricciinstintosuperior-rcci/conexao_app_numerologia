@@ -2,8 +2,8 @@
 // 1. GAVETA: PLANO DE EXPRESSÃO (planodeexpressao.html)
 // ==========================================
 const textosPerfil = {
-  fisico: {
-1: {
+fisico: {
+forte: {
 
 1:`Existe grande impulso de ação, iniciativa e realização prática. A energia física manifesta-se com intensidade, favorecendo o começo de projetos, a tomada de decisões e a capacidade de transformar ideias em movimento concreto.
 
@@ -61,7 +61,7 @@ O principal aprendizado envolve equilibrar idealismo com praticidade e constânc
 
     },
 
-2: {
+medio: {
 
 1:`Existe boa capacidade de iniciativa e ação quando há motivação clara. A energia física tende a responder bem a objetivos definidos, permitindo iniciar projetos e colocar ideias em prática com relativa facilidade.
 
@@ -119,7 +119,7 @@ Transformar visão em ação prática fortalece a capacidade de realização mat
 
     },
 
-    3: {
+    fraco: {
 0:`Neste plano observa-se ausência de manifestação consistente da energia física.
 
 A ação prática tende a não surgir de forma espontânea. A iniciativa material pode depender de estímulos externos, circunstâncias específicas ou pressão do ambiente para acontecer. Sem esses estímulos, existe tendência a permanecer mais no campo das ideias do que na execução concreta.
@@ -183,7 +183,7 @@ Aprender a transformar inspiração em ação prática e desenvolver disciplina 
   },
 
   mental: {
-   1: {
+    forte: {
 1:`A mente possui forte impulso de liderança intelectual e independência de pensamento. Existe grande necessidade de pensar por conta própria, tomar decisões e criar caminhos originais.
 
 A pessoa tende a confiar nas próprias ideias e assumir naturalmente posição de liderança em ambientes que exigem raciocínio, planejamento e tomada de decisão. O desafio está em evitar rigidez mental, impaciência com opiniões divergentes ou excesso de autossuficiência.`,
@@ -219,7 +219,8 @@ O pensamento é orientado a resultados e eficiência. O desafio está em equilib
 
 O pensamento tende a ser idealista e visionário. O desafio está em manter os pés na realidade e equilibrar idealismo com praticidade.`,
     },
-2: {
+
+medio: {
 1:`Existe boa capacidade de iniciativa mental e pensamento independente, porém de forma equilibrada e sem excessos. A mente tende a buscar autonomia, tomar decisões próprias e iniciar ideias com naturalidade.
 
 Há desejo de liderar pensamentos, criar soluções e abrir caminhos intelectuais, mas ainda convivendo com momentos de dúvida ou necessidade de confirmação externa. O desafio está em fortalecer a autoconfiança mental e confiar mais nas próprias ideias.`,
@@ -256,7 +257,7 @@ O desafio está em equilibrar ambição com sensibilidade, evitando rigidez ou e
 Pode surgir tendência a idealizações ou excesso de preocupação com o todo, sendo importante manter equilíbrio entre visão ampla e realidade prática.`,
     },
 
-    3: {
+    fraco: {
 0:`Neste plano há ausência de predominância da energia mental.
 
 Os processos de análise, planejamento estruturado e raciocínio lógico não costumam atuar como força principal nas decisões. Pensamentos podem surgir de forma mais espontânea e menos sistematizada, sem necessidade constante de organizar ou racionalizar tudo ao redor.
@@ -320,7 +321,7 @@ O aprendizado ocorre ao ampliar a visão mental e estruturar pensamentos com mai
   },
 
   emocional: {
-    1: {
+    forte: {
 1:`A intensidade emocional impulsiona iniciativa afetiva e capacidade de agir movido pelos sentimentos. Existe coragem para demonstrar emoções, tomar atitudes no campo afetivo e iniciar vínculos com espontaneidade e autenticidade.`,
 
 2:`Grande sensibilidade emocional e forte necessidade de conexão afetiva. Existe facilidade para compreender sentimentos alheios, criar vínculos profundos e atuar como mediador emocional em relações.`,
@@ -340,7 +341,7 @@ O aprendizado ocorre ao ampliar a visão mental e estruturar pensamentos com mai
 9:`Grande empatia e sensibilidade universal. Emoções amplas e generosas, com forte capacidade de compaixão, compreensão e entrega emocional.`
     },
 
-    2: {
+    medio: {
 1:`Existe equilíbrio na forma de lidar com emoções, com capacidade de expressar sentimentos sem perder autonomia. A pessoa consegue reconhecer suas necessidades emocionais e agir com certa independência afetiva.`,
 
 2:`Há boa sensibilidade emocional e facilidade em compreender sentimentos próprios e dos outros. Existe tendência à empatia e cooperação, mantendo equilíbrio entre dar e receber afeto.`,
@@ -359,7 +360,8 @@ O aprendizado ocorre ao ampliar a visão mental e estruturar pensamentos com mai
 
 9:`Há sensibilidade emocional ampla e capacidade de compreensão dos outros. A pessoa tende a demonstrar empatia, compaixão e generosidade emocional de forma equilibrada.`
     },
-3: {
+
+    fraco: {
 0:`Neste plano há pouca ativação da energia emocional como força dominante.
 
 As emoções não costumam conduzir decisões nem ocupar o centro da experiência cotidiana. Existe tendência a vivenciar sentimentos de forma mais discreta, reservada ou silenciosa, sem grande necessidade de expressá-los ou compartilhá-los constantemente.
@@ -403,7 +405,7 @@ O pensamento tende a ser idealista e visionário. O desafio está em manter os p
   },
 
   intuitivo: {
-    1: {
+    forte: {
 1:`Forte iniciativa intuitiva. Existe capacidade de confiar na própria percepção interior e agir com base em pressentimentos claros e decisões rápidas guiadas pela intuição.`,
 
 2:`Alta sensibilidade às energias e aos ambientes. Existe percepção refinada de climas emocionais e situações invisíveis aos outros, favorecendo cooperação e harmonia.`,
@@ -423,7 +425,7 @@ O pensamento tende a ser idealista e visionário. O desafio está em manter os p
 9:`Intuição universal e compassiva. Sensibilidade ampliada à humanidade e forte percepção de ciclos, propósitos e conexões maiores.`
     },
 
-   2: {
+    medio: {
 1:`A intuição aparece principalmente nos momentos de decisão. Existe percepção interior que ajuda a iniciar caminhos, mas ainda alterna com dúvidas e necessidade de confirmação racional.`,
 
 2:`Sensibilidade moderada aos ambientes e às pessoas. A percepção intuitiva surge em situações de vínculo e convivência, mas nem sempre é plenamente confiada.`,
@@ -443,7 +445,7 @@ O pensamento tende a ser idealista e visionário. O desafio está em manter os p
 9:`Sensibilidade intuitiva voltada ao coletivo e ao bem comum aparece em momentos de empatia e reflexão mais profunda.`
     },
 
-   3: {
+    fraco: {
 0:`Neste plano observa-se ausência de predominância da percepção intuitiva.
 
 A percepção do invisível, do simbólico ou do subjetivo não costuma atuar como guia principal das escolhas. A vida tende a ser interpretada de maneira mais literal, concreta e direta, sem necessidade frequente de buscar significados ocultos ou leituras profundas da realidade.

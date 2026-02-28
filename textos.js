@@ -866,14 +866,25 @@ const explicacoesPosicao = {
 const textosPlanos = textosPerfil;
 
 // 4. UNIFICAÇÃO: Para que outros Apps (como o da degustação) também funcionem
+// --- UNIFICAÇÃO TOTAL (NÃO DEIXA NINGUÉM DE FORA) ---
+
 var textos = { 
-    ...textosPerfil, 
-    introducoes, 
-    explicacoesPosicao,
-    dia: textosPerfil.dia || {}, // Caso tenhas textos de dia de nascimento
-    comportamento: textosPerfil.comportamento || {} 
+    ...textosPerfil,        // Libera: fisico, mental, emocional, intuitivo, dia, comportamento
+    ...textosHarmonia,      // Libera: todos os textos de compatibilidade/casal
+    ...textosVida,          // Libera: pirâmide, ciclos, desafios
+    ...textosMapaCompleto,   // Libera: qualquer outro texto extra que você criou
+    introducoes,            // Libera: os textos de abertura do Plano Natural
+    explicacoesPosicao      // Libera: as explicações de 1º, 2º e 3º intensidade
 };
 
-console.log("Conexão de variáveis concluída com sucesso!");
+// --- PONTES DE SEGURANÇA (Para garantir que os nomes batam) ---
+// Se o HTML procurar por 'textosPlanos', ele acha o 'textosPerfil'
+const textosPlanos = textosPerfil; 
+
+// Garante que o App de Estudo ache o 'dia' e o 'comportamento'
+textos.dia = textos.dia || (textosPerfil ? textosPerfil.dia : {});
+textos.comportamento = textos.comportamento || (textosPerfil ? textosPerfil.comportamento : {});
+
+console.log("✅ Sistema Unificado: Todos os textos estão ativos!");
 
   

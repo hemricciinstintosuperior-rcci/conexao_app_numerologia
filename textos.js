@@ -865,12 +865,15 @@ const explicacoesPosicao = {
 const textosPlanos = textosPerfil;
 
 // 4. UNIFICAÇÃO: Para que outros Apps (como o da degustação) também funcionem
-var textos = { 
-    ...textosPerfil, 
-    introducoes, 
+// 4. UNIFICAÇÃO: Libera todos os textos sem dar erro
+var textos = {
+    ...textosPerfil,
+    ...(typeof textosHarmonia !== 'undefined' ? textosHarmonia : {}),
+    ...(typeof textosVida !== 'undefined' ? textosVida : {}),
+    ...(typeof textosMapaCompleto !== 'undefined' ? textosMapaCompleto : {}),
+    introducoes,
     explicacoesPosicao,
-    dia: textosPerfil.dia || {}, // Caso tenhas textos de dia de nascimento
-    comportamento: textosPerfil.comportamento || {} 
+    dia: (textosPerfil && textosPerfil.dia) ? textosPerfil.dia : {},
+    comportamento: (textosPerfil && textosPerfil.comportamento) ? textosPerfil.comportamento : {}
 };
-
 console.log("Conexão de variáveis concluída com sucesso!");

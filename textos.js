@@ -1,6 +1,11 @@
 // ==========================================
 // 1. GAVETA: PLANO DE EXPRESSÃO (planodeexpressao.html)
-// ==========================================
+const introducoes = {
+    fisico: "Seu plano físico representa sua capacidade de realização material.",
+    mental: "Seu plano mental descreve como você processa informações.",
+    emocional: "Seu plano emocional revela como você lida com os sentimentos.",
+    intuitivo: "Seu plano intuitivo mostra sua conexão com o que não é visível."
+};// ==========================================
 const textosPerfil = {
 fisico: {
 forte: {

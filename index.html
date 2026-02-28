@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Instinto Superior | Oráculo Quântico</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #0f172a; /* Azul meia-noite */
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #facc15; /* Amarelo Ouro */
+        margin-bottom: 10px;
+        text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
+    }
+
+    p.subtitle {
+        color: #94a3b8;
+        font-size: 1.1rem;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        width: 90%;
+        max-width: 1000px;
+        padding: 20px;
+    }
+
+    .card {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        border-color: #facc15;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        background: #24344d;
+    }
+
+    .icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .card h2 {
+        margin: 10px 0;
+        font-size: 1.5rem;
+        color: #facc15;
+    }
+
+    .card p {
+        color: #cbd5e1;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .btn-acesso {
+        margin-top: 20px;
+        background: #facc15;
+        color: #0f172a;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+    }
+
+    footer {
+        margin-top: auto;
+        padding: 40px;
+        color: #475569;
+        font-size: 0.8rem;
+    }
+
+    /* Animação de entrada */
+    .card { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <h1>✨ Instinto Superior</h1>
+        <p class="subtitle">Descubra os códigos ocultos do seu destino</p>
+    </header>
+
+    <div class="menu-grid">
+        
+        <a href="perfil.html" class="card">
+            <div class="icon">👤</div>
+            <h2>Perfil Comportamental</h2>
+            <p>Descubra suas tendências mentais, físicas e emocionais através da numerologia do nome.</p>
+            <div class="btn-acesso">Consultar Perfil</div>
+        </a>
+
+        <a href="harmonia.html" class="card">
+            <div class="icon">❤️</div>
+            <h2>Harmonia Conjugal</h2>
+            <p>Analise a compatibilidade vibracional entre você e seu parceiro(a) e os desafios do casal.</p>
+            <div class="btn-acesso">Ver Sinastria</div>
+        </a>
+
+        <a href="piramide.html" class="card">
+            <div class="icon">🔺</div>
+            <h2>Matriz da Vida</h2>
+            <p>Mapeie sua Pirâmide Quântica, descubra seu Regente e os ciclos de idade do seu destino.</p>
+            <div class="btn-acesso">Gerar Matriz</div>
+        </a>
+
+<a href="mapa.html" class="card">
+    <div class="icon">📜</div>
+    <h2>Mapa do Destino</h2>
+    <p>Acesse o seu estudo numerológico completo: descubra sua missão, seus desafios e o propósito da sua alma.</p>
+    <div class="btn-acesso">Acessar Mapa</div>
+</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Instinto Superior - Sabedoria Milenar e Tecnologia Quântica
+    </footer>
+
+</body>
+</html>

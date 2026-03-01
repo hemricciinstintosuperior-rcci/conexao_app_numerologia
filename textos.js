@@ -844,43 +844,44 @@ destino: `
 
 // --- COLA ESTE BLOCO NO FINAL DO TEU FICHEIRO TEXTOS.JS ---
 
-// 1. Criar as introduções que o teu HTML (linha 104) está a pedir
+// 1. Definição das Introduções
 const introducoes = {
-    natural: "A tua estrutura natural revela a base da sua personalidade e as ferramentas que trouxeste ao nascer.",
-    fisico: "O plano físico representa a tua capacidade de realização material.",
-    mental: "O plano mental descreve como processas informações e planeias.",
-    emocional: "O plano emocional revela como lidas com os teus sentimentos.",
-    intuitivo: "O plano intuitivo mostra a tua ligação com o que não é visível."
+    natural: "Sua estrutura natural revela a base da sua personalidade.",
+    fisico: "O plano físico representa sua capacidade de realização material.",
+    mental: "O plano mental descreve como você processa informações.",
+    emocional: "O plano emocional revela como você lida com os sentimentos.",
+    intuitivo: "O plano intuitivo mostra sua conexão com o que não é visível."
 };
 
-// 2. Criar as explicações de posição que o teu HTML (linha 108) está a pedir
+// 2. Definição das Explicações de Posição
 const explicacoesPosicao = {
-    1: "Esta é a tua maior força. É a energia que usas de forma mais instintiva.",
-    2: "Esta é uma força de apoio importante que equilibra a tua forma de agir.",
-    3: "Esta energia manifesta-se de forma equilibrada como um recurso secundário.",
-    4: "Esta é a área que exige mais esforço e onde buscas maior aprendizagem."
+    1: "Esta é sua maior força.",
+    2: "Esta é uma força de apoio importante.",
+    3: "Esta energia manifesta-se de forma equilibrada.",
+    4: "Esta é a área que exige mais esforço."
 };
 
-// 3. A PONTE: Faz o HTML encontrar os textos dentro de 'textosPerfil'
-const textosPlanos = textosPerfil;
-
-// 4. UNIFICAÇÃO: Para que outros Apps (como o da degustação) também funcionem
-// 4. UNIFICAÇÃO: Libera todos os textos sem dar erro
+// 3. CRIAÇÃO DA VARIÁVEL GLOBAL (A base de tudo)
 var textos = {
-    ...textosPerfil,
-    ...(typeof textosHarmonia !== 'undefined' ? textosHarmonia : {}),
-    ...(typeof textosVida !== 'undefined' ? textosVida : {}),
-    ...(typeof textosMapaCompleto !== 'undefined' ? textosMapaCompleto : {}),
-    introducoes,
-    explicacoesPosicao,
-    dia: (textosPerfil && textosPerfil.dia) ? textosPerfil.dia : {},
-    comportamento: (textosPerfil && textosPerfil.comportamento) ? textosPerfil.comportamento : {}
+    introducoes: introducoes,
+    explicacoesPosicao: explicacoesPosicao
 };
-console.log("Conexão de variáveis concluída com sucesso!");
 
-// APENAS PARA O ESTUDO NUMEROLÓGICO FUNCIONAR
+// 4. PONTE DE SEGURANÇA (Faz o botão de gerar voltar a funcionar e libera os textos)
 if (typeof textosPerfil !== 'undefined') {
-    textos.dia = textosPerfil.dia;
-    textos.comportamento = textosPerfil.comportamento;
-};
+    // Une o conteúdo do Perfil à variável global textos
+    Object.assign(textos, textosPerfil);
+    
+    // Cria os atalhos específicos para o Estudo Numerológico (Dia e Comportamento)
+    textos.dia = textosPerfil.dia || {};
+    textos.comportamento = textosPerfil.comportamento || {};
+    
+    // Ponte para o Plano de Expressão
+    var textosPlanos = textosPerfil;
+}
 
+// 5. CONEXÃO DE OUTRAS GAVETAS (Se existirem)
+if (typeof textosHarmonia !== 'undefined') Object.assign(textos, textosHarmonia);
+if (typeof textosVida !== 'undefined') Object.assign(textos, textosVida);
+
+console.log("✅ Sistema Totalmente Conectado!");

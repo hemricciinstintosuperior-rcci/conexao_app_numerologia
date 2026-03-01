@@ -886,16 +886,12 @@ if (typeof textosVida !== 'undefined') Object.assign(textos, textosVida);
 
 console.log("✅ Sistema Totalmente Conectado!");
 
-// --- UNIFICAÇÃO PARA O MAPA DO DESTINO (DIA E COMPORTAMENTO) ---
-if (typeof textosPerfil !== 'undefined') {
-    // Cria os caminhos que o Mapa do Destino e o Estudo procuram
-    textos.dia = textosPerfil.dia;
-    textos.comportamento = textosPerfil.comportamento;
+// --- CORREÇÃO FINAL: CONECTANDO O MAPA COMPLETO ---
+if (typeof textosMapaCompleto !== 'undefined') {
+    // Puxa os textos da gaveta certa que você criou (Linha 579)
+    textos.dia = textosMapaCompleto.dia;
+    textos.comportamento = textosMapaCompleto.comportamento;
     
-    // Alguns sistemas de Mapa do Destino procuram por 'vida' ou 'destino'
-    // Vamos garantir que ele ache o Dia e Comportamento neles também:
-    textos.vida = textosPerfil; 
-    textos.destino = textosPerfil;
+    // Garante que o Mapa do Destino também enxergue esses textos
+    textos.vida = textosMapaCompleto;
 }
-
-console.log("✅ Textos de Dia e Comportamento liberados para o Mapa do Destino!");

@@ -60,85 +60,698 @@
 <script src="textosplanoexpressao.js"></script>
 
 <script>
-// Mantendo sua lógica original de tabelas para não dar erro no cálculo
-const tabela = { A:1, J:1, I:1, Q:1, Y:1, B:2, K:2, R:2, C:3, G:3, L:3, S:3, D:4, M:4, T:4, E:5, H:5, N:5, U:6, V:6, W:6, X:6, Ç:6, O:7, Z:7, F:8, P:8 };
-const planos = { fisico: ["E","W","D","M"], mental: ["A","H","J","N","P","G","L"], emocional: ["I","O","R","Z","B","S","T","X"], intuitivo: ["K","F","Q","U","Y","C","V"] };
 
-// Funções de apoio do seu sistema original
-function calcularValorComAcentos(letra) {
+        const tabela = { A:1, J:1, I:1, Q:1, Y:1, B:2, K:2, R:2, C:3, G:3, L:3, S:3, D:4, M:4, T:4, E:5, H:5, N:5, U:6, V:6, W:6, X:6, Ç:6, O:7, Z:7, F:8, P:8 };
+        const vogais = ["A","E","I","O","U","Y"];
+    // Títulos amigáveis para cada estrutura
+    const titulosEstrutura = {
+        "FMMM": "Ponto de Equilíbrio",
+        "FFMM": "Dualidade de Potência",
+        "FFFM": "Tripé de Sustentação Ampla",
+        "FMMf": "Equilíbrio com Ponto de Resgate",
+        "Ffff": "Estrutura de Especialização",
+        "FFff": "Binário de Extremos",
+        "FMff": "Pico de Transição Dinâmica"
+    };
+const mapaMatriz = { A:1,I:1,Q:1,J:1,Y:1, B:2,K:2,R:2, C:3,G:3,L:3,S:3, D:4,M:4,T:4, E:5,H:5,N:5, U:6,V:6,W:6,X:6,Ç:6, O:7,Z:7, F:8,P:8 };
+   
+// Tabelas para o Plano de Expressão
+const tabelaExpressao = {
+    'E':'criativo','W':'indeciso','D':'neutro','M':'neutro',
+    'A':'criativo','H':'indeciso','J':'indeciso','N':'indeciso','P':'indeciso','G':'neutro','L':'neutro',
+    'I':'criativo','O':'criativo','R':'criativo','Z':'criativo','B':'indeciso','S':'indeciso','T':'indeciso','X':'indeciso',
+    'K':'criativo','F':'indeciso','Q':'indeciso','U':'indeciso','Y':'indeciso','C':'neutro','V':'neutro'
+};
+
+const gruposPlanos = { 
+    fisico: ["E","W","D","M"], 
+    mental: ["A","H","J","N","P","G","L"], 
+    emocional: ["I","O","R","Z","B","S","T","X"], 
+    intuitivo: ["K","F","Q","U","Y","C","V"] 
+};
+
+const coresPlanos = { fisico: "#ff4d4d", mental: "#4da6ff", emocional: "#33cc66", intuitivo: "#ffd633" };
+
+function calcularValorLetra(letra) {
     const base = letra.normalize("NFD")[0].toUpperCase();
-    return tabela[base] || 0;
-}
+    const valorBase = tabela[base] || 0;
+    if (!valorBase) return 0;
 
-function reduzirNumero(n) {
-    if (n === 0) return 0;
-    while(n > 9) n = n.toString().split("").reduce((a,b) => a + Number(b), 0);
-    return n;
-}
+    let soma = 0, mult = 1, norm = letra.normalize("NFD");
 
-function descobrirPlano(letra) {
-    let l = letra.normalize("NFD")[0].toUpperCase();
-    for(let p in planos) if(planos[p].includes(l)) return p;
-    return null;
-}
-
-function classificarIntensidade(valor, maior) {
-    if (valor >= maior * 0.75) return "forte";
-    if (valor >= maior * 0.5) return "medio";
-    return "fraco";
-}
-
-// Sua função principal de gerar texto que usa o textos.js
-function gerarTextoPlano(tipo, dados) {
-    const nomesAmigaveis = { fisico: "Plano Físico", mental: "Plano Mental", emocional: "Plano Emocional", intuitivo: "Plano Intuitivo" };
-    let planosOrdenados = Object.keys(dados)
-        .map(chave => ({ chave, valor: Number(dados[chave].valorReal) || 0, nivel: dados[chave].nivel, num: dados[chave].numero }))
-        .sort((a, b) => b.valor - a.valor);
-
-    // Usa as variáveis que estão dentro do seu textos.js
-    let textoFinal = (introducoes[tipo] || "") + "<br><br>";
-    planosOrdenados.forEach((plano, index) => {
-        let posicao = index + 1;
-        textoFinal += `<b>${posicao}ºIntensidade - ${nomesAmigaveis[plano.chave]}</b><br>`;
-        if (typeof explicacoesPosicao !== 'undefined') textoFinal += (explicacoesPosicao[posicao] || "") + "<br><br>";
-        if (typeof textosPlanos !== 'undefined' && textosPlanos[plano.chave]) {
-            let txt = textosPlanos[plano.chave][plano.nivel][plano.num];
-            textoFinal += (txt || "") + "<br><br>";
-        }
-    });
-
-    return textoFinal; 
-}
-
-function gerarTudo() {
-    let nome = document.getElementById("nome").value.trim();
-    if(!nome) return alert("Digite o nome.");
-
-    let soma = { fisico: 0, mental: 0, emocional: 0, intuitivo: 0 };
-    for(let l of nome.toUpperCase()) {
-        let p = descobrirPlano(l);
-        if(p) soma[p] += calcularValorComAcentos(l);
+    for (let i = 1; i < norm.length; i++) {
+        const c = norm[i];
+        
+        if (c === "\u0301") soma += 2;          // Agudo (´)
+        else if (c === "\u0302") soma += 7;     // Circunflexo (^)
+        else if (c === "\u0303") soma += 3;     // Til (~)
+        else if (c === "\u0327") soma += 3;     // Cedilha (¸)
+        else if (c === "\u030a") soma += 7;     // Círculo/Grau superior (°)
+        else if (c === "\u0300" || c === "\u0308") mult *= 2; // Grave/Trema
     }
 
-    const maior = Math.max(soma.fisico, soma.mental, soma.emocional, soma.intuitivo);
-    const dados = {
-        fisico: { nivel: classificarIntensidade(soma.fisico, maior), numero: reduzirNumero(soma.fisico), valorReal: soma.fisico },
-        mental: { nivel: classificarIntensidade(soma.mental, maior), numero: reduzirNumero(soma.mental), valorReal: soma.mental },
-        emocional: { nivel: classificarIntensidade(soma.emocional, maior), numero: reduzirNumero(soma.emocional), valorReal: soma.emocional },
-        intuitivo: { nivel: classificarIntensidade(soma.intuitivo, maior), numero: reduzirNumero(soma.intuitivo), valorReal: soma.intuitivo }
-    };
+    // Verificação do Apóstrofo (')
+    // Como o apóstrofo não é um diacrítico combinante na normalização NFD padrão,
+    // verificamos se ele existe na string original.
+    if (letra.includes("'")) {
+        soma += 2;
+    }
 
-    // Mostra o bloco e anima as barras
-    document.getElementById("blocoResultado").style.display = "block";
-    document.getElementById("barFisicoNat").style.width = ((soma.fisico/maior)*100) + "%";
-    document.getElementById("barMentalNat").style.width = ((soma.mental/maior)*100) + "%";
-    document.getElementById("barEmocionalNat").style.width = ((soma.emocional/maior)*100) + "%";
-    document.getElementById("barIntuitivoNat").style.width = ((soma.intuitivo/maior)*100) + "%";
+    return (valorBase + soma) * mult;
+}  
+ 
+function valorLetraMatriz(l){
+    let n = l.normalize("NFD");
+    let v = mapaMatriz[n[0].toUpperCase()] ?? 0;
+    let s = 0;
 
-    // CHAMA O TEXTO DO textos.js
-    document.getElementById("resumoNatural").innerHTML = gerarTextoPlano("natural", dados);
+    // Lógica de acentos (Soma)
+    if (n.includes("\u0301")) s = 2;          // Agudo
+    else if (n.includes("\u0302")) s = 7;     // Circunflexo
+    else if (n.includes("\u0303")) s = 3;     // Til
+    else if (n.includes("\u0327")) s = 3;     // Cedilha
+    else if (n.includes("\u030a")) s = 7;     // Grau (°)
+    else if (l.includes("'")) s = 2;          // Apóstrofo
+
+    // Lógica de multiplicadores (Grave ou Trema)
+    return (v + s) * (n.includes("\u0300") || n.includes("\u0308") ? 2 : 1);
+}
+        
+function mascaraData(campo) {
+    let v = campo.value.replace(/\D/g, ""); // Remove tudo que não é número
+    if (v.length > 8) v = v.substring(0, 8);
     
-    window.scrollTo({ top: document.getElementById("blocoResultado").offsetTop, behavior: 'smooth' });
+    // Adiciona as barras conforme digita
+    if (v.length > 2 && v.length <= 4) {
+        v = v.replace(/^(\d{2})(\d)/, "$1/$2");
+    } else if (v.length > 4) {
+        v = v.replace(/^(\d{2})(\d{2})(\d)/, "$1/$2/$3");
+    }
+    campo.value = v;
+}
+
+function tratarNomeParaCalculo(nome) {
+    if (!nome) return "";
+
+const particulas = [
+    // Português e Espanhol
+    'de', 'da', 'do', 'das', 'dos', 'del', 'de la', 'de las', 'de lo', 'de los', 'y', 'e',
+    
+    // Italiano (Muitas variações com apóstrofo)
+    'di', 'da', 'degli', 'dei', 'de', 'dall', 'dalla', 'dallo', 'dai', 'dagli', 'delle', 'delli', 'lo', 'la',
+    
+    // Francês
+    'du', 'des', 'le', 'la', 'l', 'de la', 'de l', 'd',
+    
+    // Alemão e Holandês (Comuns em sobrenomes do sul do Brasil)
+    'von', 'van', 'vander', 'vanden', 'vane', 'vom', 'zu', 'zur', 'zum', 'auf', 'der',
+    
+    // Inglês/Escocês/Irlandês (Aglutinados ou prefixos)
+    'mac', 'mc', 'st', 'saint', 'o',
+    
+    // Árabe (Muito comum em nomes brasileiros de origem libanesa/síria)
+    'al', 'el', 'bin', 'ben', 'abd'
+];
+
+    let nomeProcessado = nome.trim(); // Mantém as maiúsculas originais
+
+    particulas.forEach(p => {
+        // O segredo está na flag 'gi' da RegExp:
+        // 'g' = global (todas as vezes que aparecer)
+        // 'i' = insensitive (ignora se é maiúsculo ou minúsculo)
+        const regexEspaco = new RegExp('\\b' + p + '\\s+', 'gi');
+        
+        // Usamos uma função no replace para manter a escrita original da partícula
+        // mas remover o espaço que vem depois dela
+        nomeProcessado = nomeProcessado.replace(regexEspaco, (match) => {
+            return match.trim(); // Remove o espaço, mantendo a partícula como foi digitada
+        });
+    });
+
+    return nomeProcessado;
+}
+  // Função de Redução Pura (Para usar onde NÃO pode ter 11/22/33)
+function reduzirPuro(n) {
+    let num = Number(n);
+    while (num > 9) {
+        num = num.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    }
+    return num;
+}
+    
+function calcularDadosPlanos(nome) {
+    let soma = { fisico: 0, mental: 0, emocional: 0, intuitivo: 0 };
+    let contPerfil = { criativo: 0, indeciso: 0, neutro: 0 };
+    
+    for(let l of nome.toUpperCase()) {
+        let letraBase = l.normalize("NFD")[0];
+        let valor = calcularValorLetra(l);
+        for(let p in gruposPlanos) {
+            if(gruposPlanos[p].includes(letraBase)) {
+                soma[p] += valor;
+                break;
+            }
+        }
+        if (tabelaExpressao[letraBase]) contPerfil[tabelaExpressao[letraBase]]++;
+    }
+    
+    // Cria o ranking de potências (do maior para o menor)
+    const ranking = Object.entries(soma).sort((a, b) => b[1] - a[1]);
+    
+    return { 
+        soma, 
+        maior: ranking[0][1], 
+        contPerfil, 
+        dominantePerfil: Object.keys(contPerfil).reduce((a, b) => contPerfil[a] >= contPerfil[b] ? a : b),
+        forcaPrincipal: ranking[0][0], // O plano com mais pontos
+        desafioAtual: ranking[3][0]    // O plano com menos pontos
+    };
+}
+
+function montarHtmlPlanosNatural(nome) {
+    const dados = calcularDadosPlanos(nome);
+    const nomesAmigaveis = { fisico: "Físico", mental: "Mental", emocional: "Emocional", intuitivo: "Intuitivo" };
+    
+    const planosOrdenados = Object.entries(dados.soma)
+        .map(([chave, valor]) => ({ chave, valor, vib: reduzir(valor) }))
+        .sort((a, b) => b.valor - a.valor);
+
+    const _p1 = planosOrdenados[0];
+    const _p4 = planosOrdenados[3];
+    const ref = _p1.valor || 1;
+    const sigla = "F" + 
+        ((planosOrdenados[1].valor / ref > 0.75) ? "F" : (planosOrdenados[1].valor / ref >= 0.50) ? "M" : "f") +
+        ((planosOrdenados[2].valor / ref > 0.75) ? "F" : (planosOrdenados[2].valor / ref >= 0.50) ? "M" : "f") +
+        ((planosOrdenados[3].valor / ref > 0.75) ? "F" : (planosOrdenados[3].valor / ref >= 0.50) ? "M" : "f");
+
+    const descricoesPerfil = {
+        criativo: ` <p>"Sua mente possui mais Criatividade"</p>
+    
+<p>Naturalmente você apresenta ideias originais, enxerga a realidade de forma diferenciada e encara imprevistos com otimismo e espontaneidade. 
+Ao analisar problemas complexos, você divide-os em partes menores, focando em soluções eficazes e na adaptação rápida a novas situações.</p>
+
+<p>Movido por estímulos internos, você demonstra grande motivação pessoal, ignorando rotinas estabelecidas para explorar diversas alternativas. 
+Pelo lado desafiador, você pode manifestar certa arrogância ou rebeldia contra regras, sofrendo com flutuações de humor e desconfiança. 
+Nessa busca constante pelo novo, você corre o risco de perder a noção de tempo ou se deixar envolver por ilusões temporárias.</p>`,
+        
+        indeciso:  ` <p>"A indecisão toma conta da sua expressão"</p>
+    
+<p>Com grande sensibilidade, você demonstra necessidade de atenção, podendo agir de forma dramática ou precipitada sob pressão emocional. 
+Sendo influenciável pelo ambiente, você muda de opinião com frequência e encontra certa dificuldade em agir de forma solitária.</p>
+
+<p>Revelando um lado sedutor, você pode ser interpretado com inconveniência devido ao excesso de dramatização em suas falas. 
+Ao fortalecer seu caráter, você descobre sua verdadeira identidade, trocando a busca por aprovação externa por seus desejos internos. 
+Em momentos de desequilíbrio, você torna-se inconstante ou impulsiva, especialmente quando é dominada por receios e emoções intensas.</p>`,
+        
+        neutro: ` <p>"Sua essência possui equilíbrio nas decisões"</p> 
+    
+<p>Sendo alguém observador, você prefere analisar todos os pontos de vista antes de tomar partido em qualquer tipo de conflito. 
+Agindo por interesses próprios, você raramente sai da zona de conforto, mantendo-se excessivamente cauteloso para evitar riscos inúteis.</p>
+
+<p>Relacionando-se bem com todos, você constrói barreiras emocionais intencionais para evitar sofrimento, raramente expondo o que realmente sente. 
+Com facilidade de adaptação, **você** mantém o autocontrole em situações difíceis, preferindo rotinas pacíficas. 
+No aspecto negativo, você pode demonstrar certa omissão ou medo de decidir, mantendo-se neutro e com baixa inclinação criativa.</p>`
+    };
+    
+
+let html = `
+        <div class="secao-card quebra-pagina">
+            <h2 class="titulo-topico"style="border-bottom: 2px solid var(--gold);">Plano de Expressão Natural</h2>
+            
+            <div class="intro-texto" style="margin-bottom: 25px; line-height: 1.6; color: #444;">
+                ${aplicarFiltroTexto(textos.introducoes.natural || `<p>O **Plano de Expressão Natural** revela como sua energia se distribui entre as quatro instâncias fundamentais da vida — Físico, Mental, Emocional e Intuitivo — definindo seu temperamento e sua forma instintiva de reagir ao mundo. Esta análise identifica onde reside sua maior força de realização e quais áreas exigem mais atenção para o seu equilíbrio pessoal.</p>
+<p>Complementando essa estrutura, identificamos o seu **Perfil Nativo**, que atua como o motor das suas decisões, classificando sua expressão em Criativa, Indecisa ou Neutra. Compreender a interação entre seus planos dominantes e seu perfil de ação é a chave para alinhar sua essência com seus resultados, permitindo que você navegue pela vida com muito mais consciência, autenticidade e poder de escolha.</p>`)}
+</div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <img src="https://hemricciinstintosuperior-rcci.github.io/Trabalho_venda_Numerologia/planoestudo.png" alt="Logo Plano de Expressão" style="max-width: 500px; height: auto; display: inline-block;">
+            </div>
+            
+            <div class="evitar-corte" style="margin-bottom: 25px; padding: 20px; border: 2px solid #827108; border-radius: 12px; background: #fff; display: flex; align-items: center; gap: 20px;">
+                <div style="background: #827108; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; text-transform: uppercase; flex-shrink: 0;">
+                    ${dados.dominantePerfil[0]}
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: #827108; text-transform: uppercase;">Perfil Nativo: ${dados.dominantePerfil}</h4>
+                    <p style="margin: 5px 0 0 0; font-size: 14px; color: #555;">${aplicarFiltroTexto(descricoesPerfil[dados.dominantePerfil])}</p>
+                </div>
+            </div>
+
+            <div style="margin: 25px 0; background: #fff; padding: 20px; border-radius: 8px;">
+`;
+    
+html += `<div class="evitar-corte">`; 
+    // Gráficos
+// Gráficos (TEXTO FIXO NO CENTRO - NATURAL)
+    for(let p in dados.soma) {
+        let porcentagem = (dados.soma[p] / ref) * 100;
+let valorReduzido = reduzirPuro(dados.soma[p]);
+
+        const degradês = {
+            fisico: 'linear-gradient(to right, #e74c3c, #7b241c)',
+            mental: 'linear-gradient(to right, #3498db, #1a5276)',
+            emocional: 'linear-gradient(to right, #2ecc71, #0a3d1d)',
+            intuitivo: 'linear-gradient(to right, #f1c40f, #b8860b)'
+        };
+
+        const fundoBarra = degradês[p] || 'linear-gradient(to right, #ffffff, #ffffff)';
+           // Localize o início da montagem do HTML na função e adicione esta linha:
+
+        html += `
+           
+            <div style="margin: 0 auto 20px auto; width: 85%;  height: 42px; position: relative;  display: flex; align-items: center; justify-content: center;break-inside: avoid; 
+page-break-inside: avoid;
+margin-top: 10px;">
+                
+               
+                <div style="width:${porcentagem}%; height:100%; background: ${fundoBarra}; position: absolute; left: 0; top: 0; transition: width 1s ease; z-index: 1; border-radius: 8px"></div>
+                
+               
+                <span style="color: #fff; font-weight: bold; font-size: 16px; text-transform: uppercase; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); letter-spacing: 1.5px; position: relative; z-index: 2; pointer-events: none;">
+                    ${nomesAmigaveis[p]} EXP ${valorReduzido}
+                </span>
+
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+
+    
+ html += `</div>`; 
+    
+    // Textos Interpretativos
+    for(let p in dados.soma) {
+        let r = dados.soma[p] / ref;
+        let int = (r > 0.75) ? "forte" : (r >= 0.50) ? "medio" : "fraco";
+       let vNatural = reduzir(dados.soma[p]);
+let vFinalNatural = reduzirPuro(dados.soma[p]);
+const textoIndiv = (textosPlanos[p] && textosPlanos[p][int]) ? textosPlanos[p][int][vFinalNatural] : "";
+        if(textoIndiv) {
+
+
+
+            html += `
+                <div class="evitar-corte" style="margin-bottom: 20px; border-left: none; padding-left: 15px;">
+                    <h4 style="margin:0; color:${coresPlanos[p]}; text-transform:uppercase; font-size:18px;">${nomesAmigaveis[p]} <small>(${int})</small></h4>
+                    <div class="texto-res">${aplicarFiltroTexto(textoIndiv)}</div>
+                </div>
+            `;
+        }
+    }
+   
+
+    // Síntese e Diretriz (Caixa Preta)
+    html += `
+        <div class="evitar-corte" style="margin-top:40px; border:0px #ffffff; padding:25px; border-radius:12px; background:#fff;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <span style="background:var(--gold); color:white; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:bold;">${titulosEstrutura[sigla] || "SÍNTESE"}</span>
+                <h3 style="margin-top:10px; text-transform:uppercase;">Síntese de Expressão Natural</h3>
+            </div>
+            <div class="texto-res">${aplicarFiltroTexto(textosSinteseExpressao[sigla] || textosSinteseExpressao["padrao"])}</div>
+            
+            <div style="margin-top:25px; background:var(--dark); color:var(--gold); padding:20px; border-radius:8px; text-align:center; border: 0px solid var(--gold);">
+                <strong style="text-transform: uppercase; letter-spacing: 1px;"> Diretriz de Equilíbrio: </strong><br>
+                <span style="font-size: 15px; color: #fff; opacity: 0.9;">
+                    Utilize a energia do plano <strong>${nomesAmigaveis[_p1.chave]}</strong> para sustentar e elevar as fragilidades do plano <strong>${nomesAmigaveis[_p4.chave]}</strong>.
+                </span>
+            </div>
+        </div>
+    </div>`;
+
+    return html;
+}
+      
+
+function gerarTudo() {
+    const nomeRaw = document.getElementById("nome").value.trim();
+       // NOVO: Captura o nome de casado
+   
+    const dataRaw = document.getElementById("data").value; // Agora vem como DD/MM/AAAA
+// IMPLEMENTAÇÃO APENAS:
+
+    if (!nomeRaw || !dataRaw) return alert("Por favor, preencha todos os dados.");
+
+    // 1. CAPTURA DO TEXTO DIGITADO (Lógica para DD/MM/AAAA)
+    const partes = dataRaw.split("/");
+    if (partes.length !== 3) return alert("Formato de data inválido. Use DD/MM/AAAA");
+
+    var dia = parseInt(partes[0], 10);
+    var mes = parseInt(partes[1], 10);
+    var ano = parseInt(partes[2], 10);
+// --- CÁLCULO DE IDADE CRONOLÓGICA (ALINHAMENTO PREMIUM) ---
+const agora = new Date();
+const dtNasci = new Date(ano, mes - 1, dia); // Usa as variáveis que você já criou
+
+let idadeCronologica = agora.getFullYear() - dtNasci.getFullYear();
+if (agora < new Date(agora.getFullYear(), dtNasci.getMonth(), dtNasci.getDate())) {
+    idadeCronologica--; // Ainda não fez aniversário este ano
+}
+// ---------------------------------------------------------
+    // Agora o celular aceita QUALQUER dia (25, 26, 31...) porque é apenas TEXTO.
+    
+    var diaRed = reduzir(dia);
+    var mesRed = reduzir(mes);
+    var anoRed = reduzir(ano);
+
+    let nomesArray = nomeRaw.toUpperCase().split(/\s+/);
+
+    // Variáveis de soma (Sua lógica original)
+    let sV = 0, sC = 0, sE = 0;
+    let contagem = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+    let usados = new Set();
+
+
+
+    
+    
+    // O resto do seu código segue igual...
+// IMPLEMENTAÇÃO APENAS:
+const nomeParaCalculo = tratarNomeParaCalculo(nomeRaw);
+        
+          // Adicione o toUpperCase() aqui também para a tabela reconhecer as letras!
+nomesArray = nomeParaCalculo.toUpperCase().split(/\s+/);
+            // Essência: 1ª letra de cada nome
+            nomesArray.forEach(n => { sE += calcularValorLetra(n[0]); });
+// COLE ESTE NOVO BLOCO:
+const radicaisWConsoante = ["WAGN", "WALD", "WAND", "WALT", "WALP", "WERNER", "WOLN", "WALM", "WALY"];
+const nomeBaseParaW = nomeRaw.toUpperCase().trim();
+
+for (let l of nomeRaw.toUpperCase()) {
+    const v = calcularValorLetra(l);
+    if (v > 0) {
+        const base = l.normalize("NFD")[0];
+        
+        if(tabela[base]) { 
+            contagem[tabela[base]]++; 
+            usados.add(tabela[base]); 
+        }
+
+        let ehVogal = false;
+        if (vogais.includes(base)) {
+            ehVogal = true;
+        } 
+        else if (base === 'W') {
+            const temSomDeV = radicaisWConsoante.some(rad => nomeBaseParaW.startsWith(rad));
+            ehVogal = !temSomDeV; 
+        }
+
+        if (ehVogal) {
+            sV += v;
+        } else {
+            sC += v;
+        }
+    }
+}
+
+           // Onde era: const exp = reduzir(sV + sC);
+const exp = calcularNumerologia(sV + sC, true); // Aceita Mestre
+
+// Onde era: const mot = reduzir(sV);
+const mot = calcularNumerologia(sV, true); // Aceita Mestre
+            const faltantes = Object.keys(contagem).filter(k => contagem[k] === 0);
+
+// --- NOVO CÁLCULO DE DÉFICIT DE COMPORTAMENTO ---
+const diaReduzido = reduzir(dia); 
+// Onde era: const cvCalculado = reduzir(dia + mes + ano);
+const cvCalculado = calcularCVLinear(dia, mes, ano);
+
+// Onde era: const propCalculado = reduzir(cvCalculado + exp);
+const propCalculado = calcularNumerologia(cvCalculado + exp, true); // Aceita Mestre
+
+// Usamos as variáveis locais porque o objeto 'res' ainda vai ser criado abaixo
+const pilaresOcultos = [propCalculado, cvCalculado, exp, mot];
+let deficitsOcultos = [];
+
+pilaresOcultos.forEach((num, index) => {
+    if (pilaresOcultos.indexOf(num) !== index && !deficitsOcultos.includes(num)) {
+        deficitsOcultos.push(num);
+    }
+});
+
+let diaR = reduzir(dia);
+let mesR = reduzir(mes);
+// O Ano de referência para o Ano Pessoal depende se o aniversário já passou
+let anoReferencia = (agora < new Date(agora.getFullYear(), mes - 1, dia)) ? agora.getFullYear() - 1 : agora.getFullYear();
+let resultadoAnoPessoal = reduzir(diaR + mesR + reduzir(anoReferencia));
+ let vTransitoCalculado = "--";   
+
+
+// --- LÓGICA DE EXECUÇÃO: EQUILÍBRIO (Início e Conclusão) ---
+
+// --- DENTRO DA gerarMapaCompleto ---
+let numInicio = 0; 
+let numFim = 0;
+let txtFinalInic = "";
+let txtFinalConc = "";
+
+if (nomesArray && nomesArray.length > 0) {
+    const letraInicio = nomesArray[0][0]; 
+    const letraFim = nomesArray[nomesArray.length - 1].slice(-1); 
+
+    // Pega as chaves completas: ex "3_intuitivo_neutro"
+    const chaveInic = obterChaveMestra(letraInicio);
+    const chaveConc = obterChaveMestra(letraFim);
+
+    numInicio = calcularValorCabalisticoCompleto(letraInicio);
+    numFim = calcularValorCabalisticoCompleto(letraFim);
+
+    // BUSCA NO BANCO (Verifique se o nome é bancoEquilibrio ou bancoEquilibrioUnificado)
+    // Adicionei um console.log para você ver no F12 se a chave está certa
+    console.log("Buscando chaves:", chaveInic, chaveConc);
+
+    if(typeof bancoEquilibrioUnificado !== 'undefined'){
+        txtFinalInic = bancoEquilibrioUnificado.inicio[chaveInic] || "Texto não encontrado para: " + chaveInic;
+        txtFinalConc = bancoEquilibrioUnificado.conclusao[chaveConc] || "Texto não encontrado para: " + chaveConc;
+    }
+}
+
+
+
+const res = {
+    dia: dia,
+     mesNascimento: mes, 
+    motivacao: mot, // Já calculado com Mestre
+    influencia: calcularNumerologia(sC, false), // Personalidade/Influência aceita Mestre
+    Personalidade: exp, // Já calculado com Mestre
+    comportamento: calcularNumerologia(dia, false), // Comportamento reduz para 1-9
+    CaminhodeVida: cvCalculado, // Já calculado com Mestre
+    "Propósito": propCalculado, // Já calculado com Mestre
+    Maturidade: propCalculado, 
+    Relacionamento: calcularNumerologia(propCalculado, false), // Relacionamento SEMPRE reduz (1-9)
+    essencia: calcularNumerologia(sE, true), // Essência aceita Mestre
+    talento: calcularNumerologia(mot + exp, true), // Talento Oculto aceita Mestre
+     equilibrio: {  inicio: numInicio,  fim: numFim,   txtFinalInic: txtFinalInic,   txtFinalConc: txtFinalConc  },
+    
+
+    deficiencias: faltantes.map(d => reduzirPuro(d)), 
+    deficitRecorrente: calcularNumerologia(dia, false), 
+    deficitsOcultos: deficitsOcultos.map(d => reduzirPuro(d)), 
+    inclinacoes: Object.keys(contagem).filter(num => contagem[num] >= 3).map(Number).sort((a, b) => a - b),
+    subconsciente: 9 - faltantes.length,
+    
+    // CICLOS: Geralmente 1 a 9
+    ciclos: {
+        1: calcularNumerologia(mes, false), 
+        2: calcularNumerologia(dia, false), 
+        3: calcularNumerologia(ano, false)
+    },
+    
+    // MOMENTOS DECISIVOS (Pináculos): ACEITAM 11 e 22
+    momentos: {
+        1: calcularNumerologia(dia + mes, true), 
+        2: calcularNumerologia(dia + ano, true), 
+        3: calcularNumerologia(calcularNumerologia(dia + mes, true) + calcularNumerologia(dia + ano, true), true), 
+        4: calcularNumerologia(mes + ano, true)
+    },
+    
+// Cálculo dos Desafios (Garantindo resultado de 0 a 8)
+desafios: {
+    // Desafio 1: Diferença entre Dia e Mês (Reduzidos a 1-9)
+    1: Math.abs(reduzirPuro(dia) - reduzirPuro(mes)), 
+
+    // Desafio 2: Diferença entre Dia e Ano (Reduzidos a 1-9)
+    2: Math.abs(reduzirPuro(dia) - reduzirPuro(ano)), 
+
+    // Desafio 3: Diferença entre os resultados acima (Sempre 0 a 8)
+    3: Math.abs(Math.abs(reduzirPuro(dia) - reduzirPuro(mes)) - Math.abs(reduzirPuro(dia) - reduzirPuro(ano)))
+},
+ anoPessoal: resultadoAnoPessoal,
+ proximoAnoPessoal: reduzir(resultadoAnoPessoal + 1) 
+};
+
+
+    // ADICIONE ESTAS DUAS LINHAS ABAIXO:
+res.numEquilibrioInicio = numInicio; 
+res.numEquilibrioFim = numFim;
+
+
+// --- 1. PRIMEIRO: Calcula a Habilidade/Deficiência Científica ---
+const dadosCientificos = calcularHabilidadeEspecialCientifica(nomeRaw);
+
+// Criamos a variável vHabDefFinal que a lista está pedindo
+let vHabDefFinal = "Equilibrado"; 
+
+if (dadosCientificos) {
+    // IMPORTANTE: Use crases (backticks) para que o ${} funcione corretamente
+    vHabDefFinal = `${dadosCientificos.letraOriginal} (${dadosCientificos.numero})`;
+}
+const introProfissionalTexto = `
+    <div style="margin-bottom: 15px; text-align: justify; line-height: 1.3;">
+​<p>A verdadeira realização profissional não acontece por acaso, mas através do alinhamento preciso entre sua <strong>Engenharia de Personalidade</strong> e as demandas concretas do mundo material. Muitas vezes, a sensação de estagnação, o cansaço excessivo ou a invisibilidade no mercado são apenas os resultados diretos de atuar em frequências que não pertencem ao seu código original. Para que a prosperidade se manifeste, é indispensável que a sua ocupação seja o reflexo externo da sua estrutura numérica interna, permitindo que o trabalho deixe de ser um esforço de resistência e se torne um fluxo natural de expansão.</p>
+​<p>Nesta seção, decodificamos os pontos de convergência do seu mapa para identificar o seu <strong>"Locus de Potência"</strong>. O cálculo realizado não é genérico; ele cruza a força da sua Motivação, o propósito do seu Caminho de Vida, a capacidade de entrega da sua Expressão e, fundamentalmente, a <strong>Vibração do seu Dia de Nascimento</strong>. Este último elemento atua como o seu talento inato, a ferramenta prática que você trouxe para manejar a realidade. Ao unificar esses pilares, revelamos as áreas de atuação onde você encontrará o caminho de menor resistência para atingir o reconhecimento e a estabilidade financeira.</p>
+​<p>Apresentamos a seguir um mapeamento estratégico dividido em quatro eixos fundamentais: a sua <strong>Zona de Sucesso Absoluto</strong>, com as 30 profissões de maior ressonância com seu gráfico; o <strong>Guia de Formação Recomendada</strong>, indicando os caminhos acadêmicos ou técnicos mais eficazes; as opções de <strong>Entrada Imediata via CLT</strong>, para quem busca segurança e inserção rápida; e o seu <strong>Campo de Afinidade Cotidiana</strong>, que descreve as atividades onde sua energia melhor se adapta no dia a dia. Cada sugestão foi filtrada para garantir que sua base concreta de talentos esteja a serviço de resultados palpáveis.</p>
+​<p style="font-style: italic; color: #666;">Utilize este diagnóstico como uma bússola técnica para suas próximas escolhas de carreira, novos empreendimentos ou transições estratégicas, garantindo que cada passo esteja fundamentado em sua real matriz de sucesso.</p>
+    </div>
+`;
+// --- LOGICA DAS PROFISSÕES (ADICIONE ISSO LOGO APÓS O OBJETO 'res') ---
+const aptidao = calcularAptidaoProfissional(res); // Aqui calculamos os números repetidos
+
+const blocoProfissionalHTML = calcularAptidaoProfissional(res);
+const htmlProfissao = calcularAptidaoProfissional(res);
+// --- 1. CÁLCULOS DE APOIO (RODANDO ANTES DO PAINEL) ---
+const dadosDesejoObj = calcularDesejoOculto(nomeRaw);
+const nomeParaTalento = nomeRaw.split(' ')[0];
+   
+// Exemplo de uso:
+
+// --- CÁLCULO DO PLANO DOMINANTE PARA O PAINEL ---
+// --- SEU BLOCO DE CÁLCULO ATUALIZADO COM CORES ---
+const dadosPlanosParaPainel = calcularDadosPlanos(nomeRaw);
+const nomesAmigaveisPlanos = { fisico: "Físico-Material", mental: "Mental-Racional", emocional: "Emocional-Afetivo", intuitivo: "Intuitivo-Percepção" };
+
+// Mapa de cores seguindo o padrão do seu relatório
+const coresPlanosDinamicas = {
+    fisico: "#e74c3c",    // Vermelho
+    mental: "#3498db",    // Azul
+    emocional: "#2ecc71", // Verde
+    intuitivo: "#b8860b"  // Dourado/Gold
+};
+
+const planoChaveDominante = Object.keys(dadosPlanosParaPainel.soma).reduce((a, b) => 
+    dadosPlanosParaPainel.soma[a] > dadosPlanosParaPainel.soma[b] ? a : b
+);
+
+const vPlanoDominanteNome = nomesAmigaveisPlanos[planoChaveDominante];
+const vCorPlanoDominante = coresPlanosDinamicas[planoChaveDominante]; // <--- NOVA VARIÁVEL DE COR
+
+// --- 2. CÁLCULO DO TRÂNSITO (EXTRAÇÃO MANUAL RÁPIDA) ---
+// Precisamos dessa lógica aqui para o valor aparecer no painel lá no topo
+const idadeParaTrânsito = idadeCronologica; 
+const partesDoNome = nomeParaCalculo.toUpperCase().split(/\s+/);
+let somaTransitoFisico = 0;
+partesDoNome.forEach(p => {
+    let t = [];
+    for(let l of p) { 
+        let v = calcularValorLetra(l); 
+        for(let i=0; i<v; i++) t.push(l); 
+    }
+    let letraAtiva = t[idadeParaTrânsito % t.length];
+    if(letraAtiva) somaTransitoFisico += calcularValorLetra(letraAtiva);
+});
+const vTrânsitoFinal = reduzirPuro(somaTransitoFisico); // Simplificado para o painel
+
+// --- 3. PREPARAÇÃO DE TEXTOS PARA O PAINEL ---
+let vDeficitFinal = [res.deficitRecorrente, ...(res.deficitsOcultos || [])].filter(x => x).join(" · ") || "--";
+let vDesejoFinal = (dadosDesejoObj && dadosDesejoObj.numero) ? dadosDesejoObj.numero : "--";
+
+// Executa o cálculo dos planos para obter o Perfil Nativo
+
+
+// 1. Cálculos do Plano e Perfil (Corrigido para não dar erro de 'not defined')
+const dadosPlanos = calcularDadosPlanos(nome.value || nome); // Mudei para 'dadosPlanos'
+const perfilChave = dadosPlanos.dominantePerfil; 
+
+// Objeto com os nomes traduzidos para exibição
+const vPerfilNomes = {
+    criativo: "CRIATIVO-PRODUTIVO",
+    indeciso: "INDECISO-CONFUSO",
+    neutro: "NEUTRO-EQUILIBRADO"
+};
+
+// Configuração Visual do Perfil (Cores e Textos)
+const vTextosPerfil = {
+    criativo: ` <p>"Sua mente possui mais Criatividade"</p>`,
+    indeciso: ` <p>"A indecisão toma conta da sua expressão"</p>`,
+    neutro: ` <p>"Sua essência possui equilíbrio nas decisões"</p>`
+};
+
+const vCoresPerfil = {
+    criativo: "#827108", // Dourado 
+    indeciso: "#e74c3c", // Vermelho
+    neutro: "#7f8c8d"    // Cinza
+};
+
+// AQUI ESTAVA O ERRO: Mudei para usar 'vPerfilNomes' que acabamos de criar acima
+const valorPerfilNativoTexto = vPerfilNomes[perfilChave] || "Não Definido";
+const vCorDoPerfilAtivo = vCoresPerfil[perfilChave] || "#d97a1e";
+const vTextoDescritivoAtivo = vTextosPerfil[perfilChave] || "";
+    
+            
+// --- LÓGICA DE DATAS, IDADES E PERÍODOS (ESPELHADO NO ANTIGO) ---
+const anoNasc = ano; // Variável 'ano' que vem do split da data
+const cv = res. CaminhodeVida;
+
+// A idade de mudança principal (Maturidade)
+// O cálculo correto para travar a idade de transição:
+const fim1 = 37 - reduzirPuro(res.CaminhodeVida);
+const fim2 = fim1 + 27; // Ciclo 2 dura 27 anos
+
+const datasFases = {
+    ciclos: {
+        1: { idade: `0 a ${fim1} anos`, anos: `${anoNasc} a ${anoNasc + fim1}` },
+        2: { idade: `${fim1 + 1} a ${fim2} anos`, anos: `${anoNasc + fim1 + 1} a ${anoNasc + fim2}` },
+        3: { idade: `após ${fim2} anos`, anos: `de ${anoNasc + fim2} em diante` }
+    },
+    momentos: {
+        1: { idade: `0 a ${fim1} anos`, anos: `${anoNasc} a ${anoNasc + fim1}` },
+        2: { idade: `${fim1 + 1} a ${fim1 + 9} anos`, anos: `${anoNasc + fim1 + 1} a ${anoNasc + fim1 + 9}` },
+        3: { idade: `${fim1 + 10} a ${fim1 + 18} anos`, anos: `${anoNasc + fim1 + 10} a ${anoNasc + fim1 + 18}` },
+        4: { idade: `após ${fim1 + 18} anos`, anos: `de ${anoNasc + fim1 + 18} em diante` }
+    },
+    desafios: {
+        1: { idade: `0 a ${fim1} anos`, anos: `${anoNasc} a ${anoNasc + fim1}` },
+        2: { idade: `${fim1 + 1} a ${fim2} anos`, anos: `${anoNasc + fim1 + 1} a ${anoNasc + fim2}` },
+        3: { idade: ``, anos: `Acompanha toda a Vida` }
+    }
+};
+// 1. PRIMEIRO: CALCULA TUDO DA PIRÂMIDE (PARA A LINHA 517 NÃO DAR ERRO)
+const piramideVida = gerarPiramide(nomeRaw);
+const regenteVida = piramideVida.at(-1)[0];
+const dadosNegativas = detectarNegativas(piramideVida);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+ tituloBonito = "Seu Plano de Expressão Natural";    
+html += `
+<div class="separador-luxo">
+    <div class="caixa-interna">
+        <h2>${tituloBonito}</h2>
+    </div>
+</div>
+
+
+
+${montarHtmlPlanosNatural(nomeRaw)}
+
+
+`;
+
+
+  document.getElementById("resultado").innerHTML = `<div class="relatorio-premium">${html}</div>`;
+
+    
 }
 </script>
 </body>

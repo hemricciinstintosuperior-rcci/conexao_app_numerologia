@@ -388,31 +388,10 @@ function gerarTudo() {
        // NOVO: Captura o nome de casado
    
    
-// IMPLEMENTAÇÃO APENAS:
 
-    if (!nomeRaw || !dataRaw) return alert("Por favor, preencha todos os dados.");
 
-    // 1. CAPTURA DO TEXTO DIGITADO (Lógica para DD/MM/AAAA)
-    const partes = dataRaw.split("/");
-    if (partes.length !== 3) return alert("Formato de data inválido. Use DD/MM/AAAA");
 
-    var dia = parseInt(partes[0], 10);
-    var mes = parseInt(partes[1], 10);
-    var ano = parseInt(partes[2], 10);
-// --- CÁLCULO DE IDADE CRONOLÓGICA (ALINHAMENTO PREMIUM) ---
-const agora = new Date();
-const dtNasci = new Date(ano, mes - 1, dia); // Usa as variáveis que você já criou
-
-let idadeCronologica = agora.getFullYear() - dtNasci.getFullYear();
-if (agora < new Date(agora.getFullYear(), dtNasci.getMonth(), dtNasci.getDate())) {
-    idadeCronologica--; // Ainda não fez aniversário este ano
-}
 // ---------------------------------------------------------
-    // Agora o celular aceita QUALQUER dia (25, 26, 31...) porque é apenas TEXTO.
-    
-    var diaRed = reduzir(dia);
-    var mesRed = reduzir(mes);
-    var anoRed = reduzir(ano);
 
     let nomesArray = nomeRaw.toUpperCase().split(/\s+/);
 

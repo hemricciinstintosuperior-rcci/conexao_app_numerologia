@@ -58,13 +58,24 @@ function gerarDegustacao() {
   const nomeInput = document.getElementById("nome").value.trim();
   const dataInput = document.getElementById("data").value;
 
-  if(nomeInput.length < 5 || !dataInput) { alert("Preencha nome e data corretamente."); return; }
+  if(nomeInput.length < 5 || !dataInput) { 
+    alert("Preencha nome e data corretamente."); 
+    return; 
+  }
 
+  // 1. Extração dos números
   const [ano, mes, dia] = dataInput.split("-").map(Number);
+  
+  // 2. Cálculo do Dia e Comportamento
   const diaN = dia;
   const comportamento = reduzir(dia);
-const CaminhodeVida = reduzir(dia);
-  // Renderiza apenas o "aperitivo"
+
+  // 3. Cálculo do Caminho de Vida (Soma total da data)
+  // Somamos dia + mes + ano e reduzimos o resultado final
+  const somaData = dia + mes + ano;
+  const CaminhodeVida = reduzir(somaData); 
+
+  // Renderiza o resultado
   document.getElementById("resultado").innerHTML = `
     <div class="card">
         <h3>📍 Dia de Nascimento (Seu Talento)</h3>
@@ -78,11 +89,13 @@ const CaminhodeVida = reduzir(dia);
         <div class="texto">${aplicarFiltroTexto(textos.comportamento[comportamento])}</div>
     </div>
 
-        <div class="card">
-        <h3>🧠 Caminho de Vida (Sua estrada)</h3>
+    <div class="card">
+        <h3>🛣️ Caminho de Vida (Sua estrada)</h3>
         <p><strong>Número: ${CaminhodeVida}</strong></p>
         <div class="texto">${aplicarFiltroTexto(textos.CaminhodeVida[CaminhodeVida])}</div>
     </div>
+  
+
 
     <div style="width: 100%; max-width: 600px; margin-top: 20px;">
         <div class="item-bloqueado"><span>🔒 Motivação (Desejo Íntimo)</span> <span>Bloqueado</span></div>

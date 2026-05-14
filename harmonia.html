@@ -71,7 +71,7 @@
 
         <div class="trava-sinastria">
             <h2 style="color: #ff4d4d; margin-top: 0;">🔒 Sinastria de Casal Bloqueada</h2>
-            <p>Calculamos as vibrações individuais, mas o <b>Veredito Final de Compatibilidade</b> e o <b>Mapa do Futuro Bebê</b> estão disponíveis apenas na versão completa.</p>
+            <p>Calculamos as vibrações individuais, mas o <b>Veredito Final de Compatibilidade</b> e o <b>Mapa do Bebê</b> estão disponíveis apenas na versão completa.</p>
             <p>Descubra se seus destinos estão realmente alinhados e como evitar conflitos baseados nos números.</p>
             <a href="https://pay.hotmart.com/L104707587S" class="btn-premium">REVELAR COMPATIBILIDADE AGORA</a>
         </div>
@@ -88,6 +88,25 @@ function reduzir(n) {
     while(n > 9) n = n.toString().split("").reduce((a,b)=>a+Number(b),0);
     return n;
 }
+
+
+function formatarTextoPersonalizado(texto, nomeCompleto) {
+  if (!texto) return "";
+  
+  // Extrai apenas o primeiro nome, remove espaços e corrige maiúsculas/minúsculas
+  let primeiroNome = nomeCompleto.trim().split(' ')[0];
+  if (primeiroNome) {
+      primeiroNome = primeiroNome.charAt(0).toUpperCase() + primeiroNome.slice(1).toLowerCase();
+  } else {
+      primeiroNome = "Você";
+  }
+
+  // Substitui "você" ou "Você" pelo nome em negrito
+  let t = texto;
+  t = t.replace(/você/gi, `<strong>${primeiroNome}</strong>`);
+  return t;
+}
+    
 
 function calcularDegustacao(nome) {
     nome = nome.toUpperCase();
@@ -132,12 +151,11 @@ function gerarDegustacao() {
     // Puxa a motivação do seu textos.js
     const primeiroNome1 = n1.split(' ')[0];
     const primeiroNome2 = n2.split(' ')[0];
-    
-    document.getElementById("motivação1").innerHTML = `<strong>Desejo Íntimo de ${primeiroNome1}:</strong><br>` + 
-        (textos.motivacao[d1.motivacao].substring(0, 150) + "...");
-    
-    document.getElementById("motivação2").innerHTML = `<strong>Desejo Íntimo de ${primeiroNome2}:</strong><br>` + 
-        (textos.motivacao[d2.motivacao].substring(0, 150) + "...");
+document.getElementById("motivação1").innerHTML = `<strong>Desejo Íntimo de ${formatarTextoPersonalizado(primeiroNome1)}:</strong><br>` + 
+    (textos.motivacao[d1.motivacao].substring(0, 150) + "...");
+
+document.getElementById("motivação2").innerHTML = `<strong>Desejo Íntimo de ${formatarTextoPersonalizado(primeiroNome2)}:</strong><br>` + 
+    (textos.motivacao[d2.motivacao].substring(0, 150) + "...");
 
     window.scrollTo({ top: document.getElementById("resultadoArea").offsetTop, behavior: 'smooth' });
 }

@@ -70,6 +70,34 @@ function calcularValorComAcentos(letra) {
     return tabela[base] || 0;
 }
 
+function calcularValorLetra(letra) {
+    const base = letra.normalize("NFD")[0].toUpperCase();
+    const valorBase = tabela[base] || 0;
+    if (!valorBase) return 0;
+
+    let soma = 0, mult = 1, norm = letra.normalize("NFD");
+
+    for (let i = 1; i < norm.length; i++) {
+        const c = norm[i];
+        
+        if (c === "\u0301") soma += 2;          // Agudo (´)
+        else if (c === "\u0302") soma += 7;     // Circunflexo (^)
+        else if (c === "\u0303") soma += 3;     // Til (~)
+        else if (c === "\u0327") soma += 3;     // Cedilha (¸)
+        else if (c === "\u030a") soma += 7;     // Círculo/Grau superior (°)
+        else if (c === "\u0300" || c === "\u0308") mult *= 2; // Grave/Trema
+    }
+
+    // Verificação do Apóstrofo (')
+    // Como o apóstrofo não é um diacrítico combinante na normalização NFD padrão,
+    // verificamos se ele existe na string original.
+    if (letra.includes("'")) {
+        soma += 2;
+    }
+
+    return (valorBase + soma) * mult;
+}  
+    
 function reduzirNumero(n) {
     if (n === 0) return 0;
     while(n > 9) n = n.toString().split("").reduce((a,b) => a + Number(b), 0);

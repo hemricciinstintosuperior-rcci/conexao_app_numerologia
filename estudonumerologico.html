@@ -63,7 +63,7 @@ function gerarDegustacao() {
   const [ano, mes, dia] = dataInput.split("-").map(Number);
   const diaN = dia;
   const comportamento = reduzir(dia);
-
+const CaminhodeVida = reduzir(dia);
   // Renderiza apenas o "aperitivo"
   document.getElementById("resultado").innerHTML = `
     <div class="card">
@@ -78,11 +78,17 @@ function gerarDegustacao() {
         <div class="texto">${aplicarFiltroTexto(textos.comportamento[comportamento])}</div>
     </div>
 
+        <div class="card">
+        <h3>🧠 Caminho de Vida (Sua estrada)</h3>
+        <p><strong>Número: ${CaminhodeVida}</strong></p>
+        <div class="texto">${aplicarFiltroTexto(textos.CaminhodeVida[CaminhodeVida])}</div>
+    </div>
+
     <div style="width: 100%; max-width: 600px; margin-top: 20px;">
         <div class="item-bloqueado"><span>🔒 Motivação (Desejo Íntimo)</span> <span>Bloqueado</span></div>
         <div class="item-bloqueado"><span>🔒 Destino (Caminho de Vida)</span> <span>Bloqueado</span></div>
         <div class="item-bloqueado"><span>🔒 Missão e Propósito</span> <span>Bloqueado</span></div>
-        <div class="item-bloqueado"><span>🔒 Ciclos e Desafios 2024</span> <span>Bloqueado</span></div>
+        <div class="item-bloqueado"><span>🔒 Ciclos e Desafios </span> <span>Bloqueado</span></div>
         
         <button class="btn-premium" onclick="irParaHotmart()">🔓 DESBLOQUEAR MAPA COMPLETO</button>
     </div>

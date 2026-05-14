@@ -138,6 +138,7 @@ function gerarPiramide(valores, elemento) {
 function gerarDegustacao() {
     const n1 = document.getElementById("nome1").value;
     const n2 = document.getElementById("nome2").value;
+    
     if(!n1 || !n2) return alert("Preencha os nomes do casal.");
 
     const d1 = calcularDegustacao(n1);
@@ -148,14 +149,24 @@ function gerarDegustacao() {
     gerarPiramide(d1.valores, document.getElementById("piramide1"));
     gerarPiramide(d2.valores, document.getElementById("piramide2"));
 
-    // Puxa a motivação do seu textos.js
-    const primeiroNome1 = n1.split(' ')[0];
-    const primeiroNome2 = n2.split(' ')[0];
-document.getElementById("motivação1").innerHTML = `<strong>Desejo Íntimo de ${formatarTextoPersonalizado(primeiroNome1)}:</strong><br>` + 
-    (textos.motivacao[d1.motivacao].substring(0, 150) + "...");
+    // 1. Extrair os nomes limpos
+    const pNome1 = n1.trim().split(' ')[0];
+    const pNome2 = n2.trim().split(' ')[0];
 
-document.getElementById("motivação2").innerHTML = `<strong>Desejo Íntimo de ${formatarTextoPersonalizado(primeiroNome2)}:</strong><br>` + 
-    (textos.motivacao[d2.motivacao].substring(0, 150) + "...");
+    // 2. Pegar o texto bruto do arquivo textosharmonia.js
+    let textoBruto1 = textos.motivacao[d1.motivacao];
+    let textoBruto2 = textos.motivacao[d2.motivacao];
+
+    // 3. Aplicar a formatação (Texto + Nome Completo para a função saber quem substituir)
+    let textoFinal1 = formatarTextoPersonalizado(textoBruto1, n1);
+    let textoFinal2 = formatarTextoPersonalizado(textoBruto2, n2);
+
+    // 4. Inserir no HTML com o resumo (substring)
+    document.getElementById("motivação1").innerHTML = `<strong>Desejo Íntimo de ${pNome1.toUpperCase()}:</strong><br>` + 
+        (textoFinal1.substring(0, 150) + "...");
+
+    document.getElementById("motivação2").innerHTML = `<strong>Desejo Íntimo de ${pNome2.toUpperCase()}:</strong><br>` + 
+        (textoFinal2.substring(0, 150) + "...");
 
     window.scrollTo({ top: document.getElementById("resultadoArea").offsetTop, behavior: 'smooth' });
 }
